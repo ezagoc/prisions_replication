@@ -1,0 +1,158 @@
+\section{Figures and tables}
+
+\begin{figure}[!htpb]
+   \centering
+   \caption{Evolution of prison capacity and population levels (local)}
+   \label{fig:capacity_trend}
+   \includegraphics[width=1\textwidth]{figures/descriptives/population_v_capacity.pdf}
+   \caption*{\footnotesize{\textit{Note:} Figure plots the log number of available beds (black) and the log number of prisoners (grey) at the state level. Own elaboration with data from the Ministry of Prevention and Social Reintegration. }}
+\end{figure}
+
+\begin{figure}[!htpb]
+   \centering
+   \caption{Evolution of individuals processed through the judicial system (federal v. local)}
+   \label{fig:processed}
+   \includegraphics[width=1\textwidth]{figures/descriptives/total_processed.pdf}
+   \caption*{\footnotesize{\textit{Note:} Figure plots the total number of individuals processed through the judicial system at the federal level (top) and at the local level (bottom). The dotted line marks the date where Felipe Calderon took office (January, 2007). Own elaboration with data from INEGI.}}
+\end{figure}
+
+\newpage
+\input{tables/descriptives/desc_stats_all}
+\input{tables/regressions/twfe_results}
+
+\begin{figure}[!htpb]
+   \centering
+   \caption{ATT for pre-trial phase outcomes}
+   \label{fig:att_first}
+   \includegraphics[width=1.1\textwidth]{figures/atts/first_instance_final.pdf}
+   \caption*{\footnotesize{\textit{Note:} Average Treatment on the Treated estimates from the effect of public prison construction on a 300KM vicinity on several outcomes measured at the first-instance (control judge) courts. I apply a logarithmic transformation to variables that are in levels (1-3, top to bottom). Results are estimated using Two-Way Fixed Effects (TWFE) and \cite{Callaway} method, both with (CSDID (Controls) and without (CSDID) controls. 90\% (solid) and 95\% (dashed) confidence intervals are plotted. Standard errors are clustered at the municipality level across all specifications. }}
+\end{figure}
+
+\begin{figure}[!htpb]
+   \centering
+   \caption{Event study for pre-trial outcomes (totals)}
+   \label{fig:event_first_total}
+   \includegraphics[width=1\textwidth]{figures/events_final/process_levels_event.pdf}
+   \caption*{\footnotesize{\textit{Note:} Event study estimates from the effect of public prison construction on a 300KM vicinity on several outcomes measured at the first-instance (control judge) courts. I apply a logarithmic transformation to all variables. Results are estimated using \cite{Callaway} method with controls. 95\% confidence intervals are plotted. Standard errors are clustered at the municipality level across all specifications.}}
+\end{figure}
+
+\begin{figure}[!htpb]
+   \centering
+   \caption{Event study for pre-trial outcomes (rates)}
+   \label{fig:event_first_rate}
+   \includegraphics[width=1\textwidth]{figures/events_final/process_rates_event.pdf}
+   \caption*{\footnotesize{\textit{Note:} Event study estimates from the effect of public prison construction on a 300KM vicinity on several outcomes measured at the first-instance (control judge) courts, using rates. Results are estimated using \cite{Callaway} method with controls. 95\% confidence intervals are plotted. Standard errors are clustered at the municipality level across all specifications.}}
+\end{figure}
+
+\begin{figure}[!htpb]
+   \centering
+   \caption{ATT for sentencing outcomes}
+   \label{fig:att_sent}
+   \includegraphics[width=1.1\textwidth]{figures/atts/second_instance_final.pdf}
+   \caption*{\footnotesize{\textit{Note:} Average Treatment on the Treated estimates from the effect of public prison construction on a 300KM vicinity on several outcomes measured at the date of sentencing. Results are estimated using Two-Way Fixed Effects (TWFE), and \cite{Callaway} method, both with (CSDID (Controls) and without (CSDID) controls. 90\% (solid) and 95\% (dashed) confidence intervals are plotted. Standard errors are clustered at the municipality level across all specifications. }}
+\end{figure}
+
+\begin{figure}[!htpb]
+   \centering
+   \caption{Event study for sentencing outcomes (totals)}
+   \label{fig:event_sentence_total}
+   \includegraphics[width=1\textwidth]{figures/events_final/sentence_levels_event.pdf}
+   \caption*{\footnotesize{\textit{Note:} Event study estimates from the effect of public prison construction on a 300KM vicinity on several outcomes measured at the date of sentence. I apply a logarithmic transformation to all variables. Results are estimated using \cite{Callaway} method with controls. 95\% confidence intervals are plotted. Standard errors are clustered at the municipality level across all specifications.}}
+\end{figure}
+
+\begin{figure}[!htpb]
+   \centering
+   \caption{Event study for sentencing outcomes (rates)}
+   \label{fig:event_sentence_rates}
+   \includegraphics[width=1\textwidth]{figures/events_final/sentence_rate_event.pdf}
+   \caption*{\footnotesize{\textit{Note:} Event study estimates from the effect of public prison construction on a 300KM vicinity on several outcomes measured at the date of sentence. I apply a logarithmic transformation to all variables. Results are estimated using \cite{Callaway} method with controls. 95\% (solid) confidence intervals are plotted. Standard errors are clustered at the municipality level across all specifications.}}
+\end{figure}
+
+\begin{figure}[!htpb]
+   \centering
+   \caption{Event study for relative overcrowding}
+   \label{fig:capacity}
+   \includegraphics[width=1\textwidth]{figures/events_final/relative_overcrowding_event.pdf}
+   \caption*{\footnotesize{\textit{Note:} Event study estimates from the effect of public federal prison construction on a 400KM vicinity of a state prison that receives federal inmates on the relative overcrowding of prisons. I apply the inverse hyperbolic sine transformation to the dependent variable. Results are estimated using \cite{Callaway} method. 95\% (solid) confidence intervals are plotted. Standard errors are clustered at the municipality level.}}
+\end{figure}
+
+\begin{figure}[!htpb]
+   \centering
+   \caption{Event studies for relative overcrowding (robustness)}
+   \label{fig:capacity_robust}
+   \includegraphics[width=1\textwidth]{figures/events_final/relative_overcrowding_event_300_500.pdf}
+   \caption*{\footnotesize{\textit{Note:} Event study estimates from the effect of public federal prison construction on a 300KM and 500KM vicinity of a state prison that receives federal inmates on the relative overcrowding of prisons. I apply the inverse hyperbolic sine transformation to the dependent variable. Results are estimated using \cite{Callaway} method. 95\% (solid) confidence intervals are plotted. Standard errors are clustered at the municipality level.}}
+\end{figure}
+
+\begin{figure}[!htpb]
+   \centering
+   \caption{ATT for pre-trial phase outcomes (Robustness)}
+   \label{fig:att_first_robust}
+   \includegraphics[width=1.1\textwidth]{figures/atts/first_instance_robustness.pdf}
+   \caption*{\footnotesize{\textit{Note:} Average Treatment on the Treated estimates from the effect of public prison construction on a 300KM vicinity on several outcomes measured at the first-instance (control judge) courts. I apply a logarithmic transformation to variables that are in levels (1-3, top to bottom). Results are estimated using Two-Way Fixed Effects (TWFE), \cite{Callaway} method, both with (CSDID (Controls) and without (CSDID) controls and for robustness, \citep{SunAb, Borusyak-DIDImp} are also estimated. 90\% (big) and 95\% (small) confidence intervals are plotted. Standard errors are clustered at the municipality level across all specifications.}}
+\end{figure}
+
+\begin{figure}[!htpb]
+   \centering
+   \caption{ATT for sentencing outcomes (Robustness)}
+   \label{fig:att_sent_robustness}
+   \includegraphics[width=1.1\textwidth]{figures/atts/second_instance_robustness.pdf}
+   \caption*{\footnotesize{\textit{Note:} Average Treatment on the Treated estimates from the effect of public prison construction on a 300KM vicinity on several outcomes measured at the date of sentencing. Results are estimated using Two-Way Fixed Effects (TWFE), \cite{Callaway} method, both with (CSDID (Controls) and without (CSDID) controls, and for robustness, \citep{SunAb, Borusyak-DIDImp} are also estimated. 90\% (solid) and 95\% (dashed) confidence intervals are plotted. Standard errors are clustered at the municipality level across all specifications. }}
+\end{figure}
+
+\newgeometry{top=.4cm, left = 4cm, right = 4cm, bottom=.4cm} 
+\begin{landscape}
+\begin{figure}[htbp]
+    \centering
+    \caption{Event study estimates for intensive sentencing}
+    \label{fig:sent_intensive_event_robust}
+    \includegraphics[width=2\textwidth]{figures/events_final/sent_intensive_event.pdf}
+    \caption*{\footnotesize{\textit{Note:} Event study estimates from the effect of public prison construction on a 300KM vicinity on time sentenced. Results are estimated using Two-Way Fixed Effects (top left), \cite{Callaway} method without controls (top right), \cite{SunAb} (top middle), \cite{Gardner} (bottom left), \cite{Borusyak-DIDImp} (bottom middle) and \cite{Liu-FECT} (bottom right). 95\% confidence intervals are plotted. Standard errors are clustered at the municipality level across all specifications. }}
+\end{figure}
+\end{landscape}
+\restoregeometry
+
+\newgeometry{top=.4cm, left = 4cm, right = 4cm, bottom=.4cm} 
+\begin{landscape}
+\begin{figure}[htbp]
+    \centering
+    \caption{Event study estimates for log number of individuals found not guilty}
+    \label{fig:event_study_absolutoria}
+    \includegraphics[width=2\textwidth]{figures/events_final/absolutoria_event.pdf}
+    \caption*{\footnotesize{\textit{Note:} Event study estimates from the effect of public prison construction on a 300KM vicinity on the log number of individuals found not guilty. Results are estimated using Two-Way Fixed Effects (top left), \cite{Callaway} method without controls (top right), \cite{SunAb} (top middle), \cite{Gardner} (bottom left), \cite{Borusyak-DIDImp} (bottom middle) and \cite{Liu-FECT} (bottom right). 95\% confidence intervals are plotted. Standard errors are clustered at the municipality level across all specifications. }}
+\end{figure}
+\end{landscape}
+\restoregeometry
+
+\newgeometry{top=.4cm, left = 4cm, right = 4cm, bottom=.4cm} 
+\begin{landscape}
+\begin{figure}[htbp]
+    \centering
+    \caption{Event study estimates for the rate of people sent to pre-trial detention out of the total processed}
+    \label{fig:event_study_pretrial}
+    \includegraphics[width=2\textwidth]{figures/events_final/rate_sent_cond_event.pdf}
+     \caption*{\footnotesize{\textit{Note:} Event study estimates from the effect of public prison construction on a 300KM vicinity on the rate of people sent to pre-trial detention out of the total processed. Results are estimated using Two-Way Fixed Effects (top left), \cite{Callaway} method without controls (top right), \cite{SunAb} (top middle), \cite{Gardner} (bottom left), \cite{Borusyak-DIDImp} (bottom middle) and \cite{Liu-FECT} (bottom right). 95\% confidence intervals are plotted. Standard errors are clustered at the municipality level across all specifications. }}
+\end{figure}
+\end{landscape}
+\restoregeometry
+
+\begin{figure}[!htpb]
+   \centering
+   \caption{Robustness to the log transformation (all outcomes in levels)}
+   \label{fig:att_sent_robustness_chen}
+   \includegraphics[width=1.1\textwidth]{figures/atts/robustness_chen_roth.pdf}
+   \caption*{\footnotesize{\textit{Note:} Average Treatment on the Treated estimates from the effect of public prison construction on a 300KM vicinity on several outcomes measured at the date of sentencing. Four transformations of each outcome are applied: Inverse hyperbolic sine (IHS) transformation - $\sinh^{-1}(y) = \log(y + \sqrt{1 + y^2})$ (arcsinh), logarithmic (+1) transformation - $\log(y + 1)$ (log(y + 1)). binary indicator 1 if $y > 0$ and 0 otherwise ($1\{y>0\}$ and \cite{ChenRoth2024} transformation - $-\min\{y>0\}$ for $y=0$ and $\log(y)$ for $y>0$. Results are estimated using  \cite{Callaway} method with controls. 90\% (big) and 95\% (small) confidence intervals are plotted. Standard errors are clustered at the municipality level across all specifications. }}
+\end{figure}
+
+
+
+\begin{figure}[!htpb]
+   \centering
+   \caption{Robustness to different thresholds}
+   \label{fig:att_sent_robust_thres}
+   \includegraphics[width=1\textwidth]{figures/atts/robustness_diff_threshold.pdf}
+   \caption*{\footnotesize{\textit{Note:} Average Treatment on the Treated estimates from the effect of public prison construction on a vicinity of a municipality, using different KM thresholds to define treatment, on several outcomes. Results are estimated using \cite{Callaway} method without controls. 90\% (big) and 95\% (small) confidence intervals are plotted. Standard errors are clustered at the municipality level across all specifications. }}
+\end{figure}
+
+
+\newpage

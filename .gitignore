@@ -1,0 +1,69 @@
+# macOS
+.DS_Store
+._*
+
+# Editor and IDE files
+.idea/
+.vscode/
+*.swp
+*.swo
+*~
+
+# R
+.Rhistory
+.RData
+.Ruserdata
+.Rproj.user/
+renv/library/
+renv/staging/
+
+# Python
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.venv/
+venv/
+
+# Stata
+*.smcl
+
+# LaTeX build products
+*.acn
+*.acr
+*.alg
+*.aux
+*.bbl
+*.bcf
+*.blg
+*.fdb_latexmk
+*.fls
+*.glg
+*.glo
+*.gls
+*.ist
+*.lof
+*.log
+*.lot
+*.nav
+*.out
+*.run.xml
+*.snm
+*.synctex.gz
+*.toc
+*.vrb
+
+# Local configuration and credentials
+.env
+.env.*
+!.env.example
+
+# Scratch and temporary files
+tmp/
+temp/
+scratch/
+
+# Raw and intermediate data should be reproducible and kept outside Git.
+# Curated replication inputs in data/final_datasets/ remain trackable.
+data/raw/
+data/intermediate/
+data/derived/

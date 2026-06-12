@@ -1,0 +1,492 @@
+\documentclass[12pt]{beamer}
+%\documentclass[12pt,handout]{beamer}
+
+
+
+\usepackage{hyperref}
+\usepackage{minted}
+\usepackage{booktabs}
+\usepackage[round]{natbib}
+
+\hypersetup{
+    colorlinks=true,
+    linkcolor=blue,
+    filecolor=blue,      
+    urlcolor=blue,
+    citecolor=blue,
+}
+
+% If you want to print handouts
+%\documentclass[handout]{beamer}
+
+% Changing the fonts: this will make the slides more readable and the math look like regular tex math
+%\usefonttheme{arial}
+
+% Titles will appear in Small Cap Serif
+\usefonttheme{structuresmallcapsserif}
+
+% -----------------------------------------
+% Center the Frame Title
+% -----------------------------------------
+
+\setbeamertemplate{frametitle} {
+\begin{centering}
+\vspace{0.1in} \insertframetitle
+\par
+\end{centering}}
+
+
+% -----------------------------------------
+% Number the slides
+% -----------------------------------------
+
+\setbeamertemplate{footline}[frame number]
+
+% -----------------------------------------
+% Get rid of the irritating navigation bar
+% -----------------------------------------
+
+\setbeamertemplate{navigation symbols}{}
+% -----------------------------------------
+% Begin Document
+% -----------------------------------------
+\title{\Large\textsc{Capacity Constraints, Case-load Increases and Incarceration Rates: Evidence from Prison Constructions}}
+\author[Zago] % Esto es lo que sale en el footer
+{\textbf{Eduardo Zago}\inst{1}}
+
+\institute []% Esto es lo que sale en el footer
+{  \inst{1} NYU}
+
+\date{\textsc{}}
+
+
+\begin{document}
+\maketitle
+%  I separate each slide with a line:
+
+% -----------------------------------------
+
+%  I start with the screen black, like using the b key in Powerpoint
+
+\begin{frame}\frametitle{Outline}
+ % Table of contents slide, comment this block out to remove it
+\tableofcontents % Throughout your presentation, if you choose to use \section{} and \subsection{} commands, these will automatically be printed on this slide as an overview of your presentation
+\end{frame}
+
+
+% -----------------------------------------
+%  Restore normal white background
+
+\beamersetaveragebackground{white}
+
+
+% -----------------------------------------
+
+%  Example of a slide with animated math:
+\section{Motivation}
+
+\begin{frame}
+\frametitle{Motivation}
+
+\small
+\begin{itemize}
+\item  Prison overcrowding is a global phenomenon, in 2021, 118 countries reported prison populations exceeding official capacity \citep{GlobalPrisonTrends}
+\item The issue permeates to several societal outcomes:
+\begin{enumerate}
+    \item Recidivism \citep{Tobon}
+    \item Gang associations \citep{BayerP}
+    \item Capacity to incarcerate
+\end{enumerate}
+\item Prison construction is often thought as the solution, and is often used electorally (\href{https://www.npr.org/2025/03/17/g-s1-54206/el-salvador-mega-prison-cecot}{Bukele's CECOT}, \href{https://english.elpais.com/international/2024-03-08/public-safety-is-emerging-as-a-key-campaign-issue-in-the-battle-between-the-ruling-party-and-the-opposition-in-mexico.html#}{PAN mega-prison proposal})
+\item Yet, \textbf{building more prisons does not necessarily reduce overcrowding} or improve justice outcomes.
+
+
+\end{itemize}
+\end{frame}
+
+\begin{frame}
+\frametitle{Motivation}
+
+\small
+\begin{itemize}
+\item Lots of actors are involved: judges, prosecutors, police, executive branch, media, etc.
+\item General equilibrium effects are often overlooked.
+ \item These policies may reshape how judges and prosecutors behave—raising fundamental questions about \textbf{institutional incentives}.
+\item This complicates things: increases in capacity often endogenous to prior local/state/federal capacity levels and incarceration rates (at least).
+\item \textbf{Research Question:} What are the effects of prison construction on \textbf{sentencing and prosecutorial decisions}?
+
+\end{itemize}
+\end{frame}
+
+\begin{frame}
+\frametitle{Mexico (2000-2012)}
+\small
+\begin{itemize}
+
+\item To address federal under-capacity issues (2 federal prisons existed), the federal government launched a \textbf{federal} prison expansion program.
+ \item Staggered, 8 public (2000-2012) and 10 private (2012-2018)
+ \item Covering most of the Mexican territory.
+ \item Reaction to a change in policing by PAN (major crackdown on petty crime and cartels \citep{DellMexicanDrug, AnnualReviewPoliSci}).
+ \item Confirmed by the actual data: prosecutions increased at the state level (2000–2006) and then at the federal level (2006–2012). 
+ 
+\end{itemize}
+
+\end{frame}
+
+\begin{frame}{}
+\frametitle{}
+\tiny
+\begin{figure}[!htpb]
+            \centering
+           \label{fig:fig_HTs}
+           \caption{Evolution of state (top) and federal (bottom) caseloads}
+    \includegraphics[width=10cm, height=8cm]{figures/descriptives/total_processed.pdf}
+\end{figure}
+\end{frame}
+
+%%%%%%
+
+%%%%
+
+\section{Context}
+\begin{frame}{}
+\frametitle{}
+\tiny
+\begin{figure}[!htpb]
+            \centering
+            % Also happened on twitter, in particular an interview of a demonstrator wearing a ski mask saying that AMLO should not continue in office
+            \caption{Evolution of state level capacity vs. population}
+           \label{fig:fig_HTs}
+    \includegraphics[width=11.5cm, height=7cm]{figures/descriptives/population_v_capacity.pdf}
+\end{figure}
+\end{frame}
+
+\section{Research Question}
+\begin{frame}
+\frametitle{Research Question and Strategy}
+\small
+
+\begin{itemize}
+    \item \textbf{What are the short, medium and long term effects of prison construction on judges behavior?}
+    \item I exploit the staggered construction of \textbf{federal} prisons across Mexico as plausibly exogenous shocks to \textbf{local} incarceration and capacity constraints.  
+    \item The design relies on two institutional features: 
+    \begin{enumerate}
+    
+        \item Judges must assign inmates to the nearest facility
+        \item State prisons also hold federal prisoners.  
+    \end{enumerate}
+\end{itemize}
+\end{frame}
+
+\begin{frame}
+\frametitle{Institutional context}
+\small
+\begin{itemize}
+    \item The Mexican Constitution guarantees that prisoners serve their sentence near their place of residence.
+    \item Article 49 of the Law on the Execution of Criminal Sentences reads:
+    \end{itemize}
+    \begin{quote}
+    \centering
+``Sentenced individuals may serve their sentence in the prison facilities closest to their place
+ of residence.''
+\end{quote}
+\begin{itemize}
+    \item An exception applies to those convicted of organized crime.
+    \item The center that house gang related prisoners are excluded, as well as those convicted of it.
+\end{itemize}
+\end{frame}
+
+\begin{frame}
+\frametitle{Institutional context}
+\small
+\begin{itemize}
+    \item \textit{Local crimes} encompass most everyday offenses (theft, assault, homicide, etc). 
+    \item \textit{Federal crimes} involve federal interests or cross-border activity (drug trafficking, organized crime, firearms, money laundering, etc).
+    \item Although federal and state inmates should be held separately, legal exceptions have led to widespread housing of federal prisoners in state facilities, worsening overcrowding.  
+    \item By 2012, around \textbf{two-thirds} of state prisons held at least one federal inmate, and in some cases they represented over \textbf{30\% } of the total population.  
+\end{itemize}
+\end{frame}
+
+\begin{frame}
+\frametitle{Theoretical predictions}
+\small
+\begin{itemize}
+    \item Literature has documented several extralegal factors that affect judges behavior and criminal sentencing. 
+    \item Electoral cycles and political incentives \citep{Gordon-Judges-Election}; institutional capacity constraints \citep{Schnepel}; private incentives \citep{Dippel}; fiscal considerations \citep{Ouss-Incentives}.
+    \item Broader systemic constraints, such as judicial vacancies that reduce resources \citep{Yang-Resource-AEJ}; quasi-random increases in caseloads \citep{JudgeCaseloads-JPE-Shumway}.
+    \item My argument focuses on institutional constraints, resource constraints and increases in case-loads.
+\end{itemize}
+\end{frame}
+
+\begin{frame}
+\frametitle{Capacity constraints}
+\small
+\begin{itemize}
+     \item During overcrowding, judges may issue more lenient sentences to mitigate limited prison space.  
+    \item Although judges do not bear overcrowding costs, they must assign inmates to the nearest facility, and may treat distance or overcapacity as additional punishment.  
+    \item When new prisons open, \textbf{if overcrowding reduces}, sentencing may return to prior levels, creating an apparent increase in severity.  
+    \item Capacity concerns could also affect policing.
+     
+\end{itemize}
+\end{frame}
+
+\begin{frame}
+\frametitle{Resource constraints}
+\small
+\begin{itemize}
+    \item Prison construction could result in an increase in policing by the executive, leading to higher case-loads.
+    \item A higher judicial caseload should, in theory, raise all types of sentences proportionally.  
+    \item However...
+    \item Incentives change as resources (time) is more constrained for everyone.
+    \item Heavy dockets may create incentives for judges, prosecutors, and defense attorneys to negotiate quicker resolutions that reduce or substitute prison sentences.  
+    \item Following capacity expansions, increased policing may raise caseloads but paradoxically reduce imprisonment rates, shorten sentences, and increase fines.  
+\end{itemize}
+\end{frame}
+
+\begin{frame}
+\frametitle{Preliminary results}
+\small
+\begin{itemize}
+    \item I show that federal prison construction increases both the number of individuals processed in pretrial hearings and those sentenced in trial courts.
+    \item Municipalities located near a new federal prison experience:
+    \begin{enumerate}
+        \item Higher local (state) incarceration rates
+        \item Greater likelihood of pretrial detention among processed individuals
+        \item No change in monetary fines.
+    \end{enumerate} 
+    \item Significant and structural reduction of overcrowding among state prisons near newly built federal ones suggest a capacity effect.
+
+\end{itemize}
+\end{frame}
+
+\begin{frame}
+\frametitle{Contribution: Capacity Constraints}
+\small
+\begin{itemize}
+    \item This study relates closely with \citep{Ouss-Incentives}, who shows that shifting prison costs to local governments reduces sentencing severity.
+    \item Similarly, \citep{Schnepel} find that overcrowding in Texas increased diversion away from incarceration. 
+    \item Unlike U.S. judges, Mexican judges did not bear fiscal responsibilities nor face electoral incentives. 
+    \item The fact that sentencing behavior still responded to changes in prison capacity makes the findings especially revealing.
+\end{itemize}
+\end{frame}
+
+\begin{frame}
+\frametitle{Contribution: Resource Constraints}
+\small
+\begin{itemize}
+    \item \cite{Yang-Resource-AEJ} relates closely to mine by analyzing the effect of judicial vacancies on judicial outcomes.
+    \item Exogenous judicial vacancies generated increases in caseloads for the remaining judges.
+    \item She shows that caseload increases  lead to more case dismissals, more plea bargains, and lower incarceration rates.
+    \item This paper shows the opposite pattern: even under quasi-exogenous shocks to caseload pressures, judges respond by sending more individuals to prison rather than fewer.
+\end{itemize}
+\end{frame}
+
+\section{Empirical Strategy}
+\begin{frame}
+\frametitle{Empirical Strategy}
+\small
+\begin{itemize}
+\item I estimate a difference-in-difference design with staggered adoption.
+
+    \begin{equation}
+\label{eq:eq1}
+    Y_{mt} = \phi + \beta TreatPost_{tm} + \gamma_t + \tau_m + \epsilon_{mt},
+\end{equation}
+\small
+\item The key independent variable, $TreatPost_{tm}$ is a time-varying dummy variable that equals one if, at time $t$, the closest federal prison to a municipality is within 300 kilometers (KM). 
+\item Therefore $TreatPost_{m, t}$ is a dummy that becomes one once a federal prison is built near municipality $m$.
+\item To consider treatment effect
+ heterogeneity and the presence of negative weights, I
+ implement \citep{Callaway}. 
+ \item Event study estimates are provided to justify the parallel trends (PT) identifying assumptions.
+\end{itemize}
+\end{frame}
+
+
+\section{Data}
+\begin{frame}
+\frametitle{Data}
+\small
+\begin{itemize}
+    \item Two relevant stages of the judiciary process are worth emphasizing: pre-trial hearings and trial stage.
+    \item At both, judges make decisions that pertain to the incarceration and sentence of the individual.
+    \item Pre-trial hearings: judge takes the decision of determining pre-trial detention or allowing for the imputted to serve the process for free, or be released.
+    \item Pre-trial detention was the default in this context \citep{cossio2015formalprision}.
+    \item Trial stage: judge decides if incarceration, monetary fines, released and sentence length.
+\end{itemize}
+\end{frame}
+
+\begin{frame}
+\frametitle{Data}
+\small
+\begin{itemize}
+    \item The pre-trial dataset includes all individuals formally processed, capturing early judicial decisions such as pretrial detention or release.  
+    \item The criminal courts dataset records final case outcomes, including acquittals, prison sentences, and fines.  
+    \item Both contain rich individual-level information on demographics, crime type, and sentencing details.  
+    \item For analysis, records are aggregated to the municipality of residence - bimonthly level, focusing on outcomes related to policing and judicial decisions.  
+    \item I also have geolocated bimonthly data on local prison capacity and population levels.
+\end{itemize}
+\end{frame}
+
+
+%%%%%%%%%%%%%%%%%%%
+
+\section{Results}
+
+\begin{frame}[fragile]
+\frametitle{}
+\tiny
+\begin{figure}[!htpb]
+   \centering
+   \caption{ATT on pre-trial outcomes}
+   \label{fig:fmv}
+   \includegraphics[width=.9\textwidth]{figures/atts/first_instance_final.pdf}
+\end{figure}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{}
+\tiny
+\begin{figure}[!htpb]
+   \centering
+   \tiny
+   \caption{Event Studies (levels): Pretrial hearings}
+   \label{fig:}
+   \includegraphics[width=1\textwidth]{figures/events_final/process_levels_event.pdf}
+   %\caption*{ \footnotesize{This Figure presents the coefficients and 95\% confidence intervals for the Log SMI After Instrument for different municipality characteristics obtained from INEGI's Census. All dependent variables are in logs. Robust standard errors are estimated. We use Twitter user, population, offline participation (instrumented by weather) and Tweets with HTs posted before 8M as controls. We further include state FEs.}}
+\end{figure}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{}
+\tiny
+\begin{figure}[!htpb]
+   \centering
+   \tiny
+   \caption{Event Studies (rates): Pretrial hearings}
+   \label{fig:}
+   \includegraphics[width=.78\textwidth]{figures/events_final/process_rates_event.pdf}
+   %\caption*{ \footnotesize{This Figure presents the coefficients and 95\% confidence intervals for the Log SMI After Instrument for different municipality characteristics obtained from INEGI's Census. All dependent variables are in logs. Robust standard errors are estimated. We use Twitter user, population, offline participation (instrumented by weather) and Tweets with HTs posted before 8M as controls. We further include state FEs.}}
+\end{figure}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{}
+\label{results}
+\tiny
+\begin{figure}[!htpb]
+   \centering
+   \caption{ATT on trial outcomes}
+   \label{fig:fmv}
+   \includegraphics[width=.78\textwidth]{figures/atts/second_instance_final.pdf}
+\end{figure}
+\hyperlink{thresholds}{\beamerbutton{Thresholds}} \hyperlink{extensive}{\beamerbutton{Extensive}}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{}
+\tiny
+\begin{figure}[!htpb]
+   \centering
+   \tiny
+   \caption{Event Studies (levels): Trial hearings}
+   \label{fig:}
+   \includegraphics[width=1\textwidth]{figures/events_final/sentence_levels_event.pdf}
+\end{figure}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{}
+\tiny
+\begin{figure}[!htpb]
+   \centering
+   \tiny
+   \caption{Event Studies (rates): Trial hearings}
+   \label{fig:}
+   \includegraphics[width=1\textwidth]{figures/events_final/sentence_rate_event.pdf}
+\end{figure}
+\end{frame}
+
+%%%%%%%%%%%%%%
+
+\begin{frame}[fragile]
+\frametitle{}
+\tiny
+\begin{figure}[!htpb]
+   \centering
+   \tiny
+   \caption{Event Study: Relative Overcrowding}
+   \label{fig:}
+   \includegraphics[width=.8\textwidth]{figures/events_final/relative_overcrowding_event.pdf}
+\end{figure}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Food for thought and next steps}
+\small
+\begin{itemize}
+    \item The pre-trial hearings results are not satisfactory. 
+    \item Overall case-load increases seem to be driving the effects in levels. Rates suggest a change in behavior. 
+    \item Does this make sense: state judiciaries take vacations twice a year, leaving only one judge to process all cases.
+    \item During winter the vacations coincide with an overall decrease in crime due to the cyclic behavior. 
+    \item During August, vacation does not coincide with decreases in policing. Therefore, when vacations happen there is a de facto increase in case-load for the judges that stay.
+    \item This suggest that being prosecuted before or after the vacations might have effects on your pre-trial outcome (RDD with time to vacation and after as the running variable).
+  
+\end{itemize}
+\end{frame}
+
+
+
+
+\begin{frame}{Thank You}
+    \begin{itemize}
+        \item \href{mailto:ez2490@nyu.edu}{ez2490@nyu.edu}
+    \end{itemize} 
+\end{frame}
+
+
+\begin{frame}{References}
+\tiny
+    \bibliographystyle{apsr}
+    \typeout{}
+
+    \singlespacing
+
+    \bibliographystyle{apsr}
+    \bibliography{prisons}
+\end{frame}
+
+\section{Appendix}
+
+\begin{frame}
+\frametitle{Different thresholds}
+\label{thresholds}
+\small
+
+\begin{figure}[!htpb]
+            \centering
+            % As we can see mostly all newspapers used that last phrase to build the narrative, as well as saying that he was against the march
+           \label{fig:fig_HTs}
+    \includegraphics[width=10cm, height=7cm]{figures/atts/robustness_diff_threshold.pdf}
+\end{figure}
+
+\hyperlink{results}{\beamerbutton{Back}}
+
+\end{frame}
+
+\begin{frame}{9M}
+\frametitle{Extensive vs. Intensive Margins}
+\label{extensive}
+
+\begin{figure}[!htpb]
+            \centering
+            % As we can see mostly all newspapers used that last phrase to build the narrative, as well as saying that he was against the march
+           \label{fig:fig_HTs}
+    \includegraphics[width=10cm, height=7cm]{figures/atts/robustness_chen_roth.pdf}
+\end{figure}
+
+\hyperlink{results}{\beamerbutton{Back}}
+
+\end{frame}
+
+\end{document}

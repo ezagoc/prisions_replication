@@ -1,0 +1,18 @@
+* text=auto
+
+*.bib text diff=bibtex
+*.do text
+*.md text
+*.py text
+*.R text
+*.Rmd text
+*.tex text diff=tex
+
+*.gz binary
+*.gzip binary
+*.jpeg binary
+*.jpg binary
+*.parquet binary
+*.pdf binary
+*.png binary
+

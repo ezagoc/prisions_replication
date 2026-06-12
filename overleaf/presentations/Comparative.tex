@@ -1,0 +1,547 @@
+\documentclass[10pt,aspectratio=169]{beamer}
+
+
+  \usetheme{NYU}      % or try Darmstadt, Madrid, Warsaw, ...
+  \usecolortheme{default} % or try albatross, beaver, crane, ...
+  \usefonttheme{default}  % or try serif, structurebold, ...
+  \setbeamertemplate{navigation symbols}{}
+  \setbeamertemplate{caption}[numbered]
+\usepackage{appendixnumberbeamer}
+\usepackage{mymacro}
+\usepackage{threeparttable}
+
+\newcommand{\ind}{\perp\!\!\!\!\perp} 
+\usepackage{hyperref}
+\usepackage{minted}
+\usepackage[round]{natbib}
+
+\hypersetup{
+    colorlinks=blue,
+    linkcolor=blue,
+    filecolor=blue,      
+    urlcolor=blue,
+    citecolor=blue,
+}
+
+% If you want to print handouts
+%\documentclass[handout]{beamer}
+
+% Changing the fonts: this will make the slides more readable and the math look like regular tex math
+%\usefonttheme{arial}
+
+% Titles will appear in Small Cap Serif
+
+
+
+% -----------------------------------------
+% Center the Frame Title
+% -----------------------------------------
+
+
+
+
+% -----------------------------------------
+% Number the slides
+% -----------------------------------------
+
+\setbeamertemplate{footline}[frame number]
+
+% -----------------------------------------
+% Get rid of the irritating navigation bar
+% -----------------------------------------
+
+\setbeamertemplate{navigation symbols}{}
+% -----------------------------------------
+% Begin Document
+% -----------------------------------------
+\title{\Large\textsc{Capacity Constraints,
+Case-load Increases and
+Incarceration Rates: Evidence
+from Prison Constructions}}
+\author[Zago] % Esto es lo que sale en el footer
+{\textbf{Eduardo Zago}\inst{1}  \vspace{10pt}}
+
+\institute []% Esto es lo que sale en el footer
+{  \inst{1}   PhD Student NYU Politics}
+
+\date{\textsc{}}
+
+\titlegraphic{\hfill\includegraphics[height=1.5cm]{nyu_stacked_color}}
+
+
+\begin{document}
+\maketitle
+
+\section{Motivation}
+
+\begin{frame}
+\frametitle{Motivation}
+
+\small
+
+\begin{itemize}\setlength\itemsep{0.65em}
+    \item Institutional actors respond to constraints.
+    \pause
+    \item In criminal justice, these constraints may be:
+    \begin{itemize}\setlength\itemsep{0.65em}
+        \item \alert{Fiscal and private} — incarceration is costly {\footnotesize\color{gray}\citep{Ouss-Incentives, Galinato-2020, Mukherjee-Private}}, 
+        \item \alert{Electoral} — decisions may respond to political incentives {\footnotesize\color{gray}\citep{Gordon-Judges-Election, Berdejo-PoliticalCycles}}, 
+        \item \alert{Administrative} — higher caseloads reduce time to process cases {\footnotesize\color{gray}\citep{Yang-Resource-AEJ, JudgeCaseloads-JPE-Shumway}}, % more incentives to avoid trial and look for plea deals
+        \item \alert{Capacity-related} — limited prison space restricts the use of incarceration {\footnotesize\color{gray}\citep{Schnepel}}. 
+    \end{itemize}
+\end{itemize}
+
+\end{frame}
+
+\begin{frame}
+\frametitle{Motivation}
+
+\small
+
+\begin{itemize}\setlength\itemsep{0.65em}
+    
+    \item If behavior changes when such constraints bind, then relaxing them may also change judicial outcomes.
+    \pause
+    \item \textbf{Research question:} This paper studies whether exogenous increases in prison capacity affect judicial and policing behavior.
+    \pause
+
+    \item Causal evidence on this question is scarce for two main reasons:
+    \begin{enumerate}\setlength\itemsep{0.65em}
+        \item \textbf{Criminal justice outcomes are shaped by many actors:} judges, prosecutors, police, and prison authorities {\footnotesize\color{gray}\citep{Ater-Police-Org-JPE}.}
+        \pause
+        \item \textbf{Increases in prison capacity are endogenous} to prior incarceration levels and local demand for prison space.
+    \end{enumerate}
+
+    \end{itemize}
+
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Strategy}
+\small
+
+\begin{itemize}\setlength\itemsep{0.65em}
+    \item I exploit the staggered construction of \textbf{federal} prisons across Mexico as plausibly exogenous shocks to \textbf{local} prison capacity.
+    \pause
+    \item Where federal jurisdiction covers offenses prosecuted under federal law, while local state jurisdiction covers offenses prosecuted under state law and handled by state-level courts.
+    \pause
+    \item The identification strategy relies on three institutional features:
+    \begin{enumerate}\setlength\itemsep{0.65em}
+        \item Judges must assign inmates to the nearest available facility.
+        \pause
+        \item New federal prisons were built to relocate federal inmates, not to address local capacity constraints.
+        \pause
+        \item State prisons also house federal prisoners.
+    \end{enumerate}
+\end{itemize}
+\end{frame}
+
+\section{Context}
+
+\begin{frame}{}
+\frametitle{}
+\tiny
+\begin{figure}[!htpb]
+            \centering
+            % Also happened on twitter, in particular an interview of a demonstrator wearing a ski mask saying that AMLO should not continue in office
+            \caption{Evolution of state level capacity vs. population}
+           \label{fig:fig_HTs}
+    \includegraphics[width=13.5cm, height=7cm]{figures/descriptives/capacity_overcrowding.pdf}
+\end{figure}
+\end{frame}
+
+\begin{frame}
+\frametitle{1) Inmate Assignment}
+\small
+\begin{itemize}\setlength\itemsep{0.7em}
+    \item Judges are required to assign inmates to the \textbf{nearest available facility} relative to their municipality of residence.
+    
+    \item \textbf{Legal basis:} \textit{“Sentenced individuals may serve their sentence in the prison facilities closest to their place of residence.”}\\
+    \hfill (Ley Nacional de Ejecución Penal, Article 49)
+\end{itemize}
+
+\end{frame}
+
+\begin{frame}
+\frametitle{2) Federal prison expansion (2000 - 2012)}
+\small
+\begin{itemize}\setlength\itemsep{0.65em}
+
+\item To address federal under-capacity issues (2 federal prisons existed), the federal government launched a \textbf{federal} prison expansion program.
+\pause
+ \item Staggered, 8 public (2000-2012) and 10 private (2012-2018)
+ \pause 
+ 
+ \item Hand in hand with a federal change in policing by PAN (major crackdown on cartels \citep{DellMexicanDrug, AnnualReviewPoliSci}).
+
+ \pause 
+ \item Confirmed by the actual data: prosecutions increased at the federal level (2006–2012). 
+\end{itemize}
+
+\end{frame}
+
+\begin{frame}
+\frametitle{2) Federal prison expansion}
+\small
+\begin{itemize}\setlength\itemsep{0.7em}
+    
+    \item In 2009, under President Felipe Calderón, a federal mandate required the transfer of individuals charged with federal offenses to federal prisons, expanding capacity and shifting inmates away from state facilities. 
+    {\footnotesize\color{gray}\citep{ZaldivarGonzalez2020Privatizacion}}
+    
+\end{itemize}
+
+\tiny
+\begin{figure}[!htpb]
+   \centering
+   \includegraphics[width=1\textwidth]{figures/descriptives/map_prison_buffers.pdf}
+\end{figure}
+
+\end{frame}
+
+\begin{frame}
+\frametitle{3) Housing of Federal Prisoners in State Facilities}
+\small
+\begin{itemize}\setlength\itemsep{0.7em}
+    
+    \item \textbf{Legal basis:} \textit{“...inmates sentenced for federal crimes may serve their sentences in penitentiary centers under the responsibility of State Governments...”}\\
+    \hfill (Article 3, Law on Social Rehabilitation of Inmates)
+    
+\end{itemize}
+
+\vspace{0.3cm}
+
+\tiny
+\begin{figure}[!htpb]
+   \centering
+   \includegraphics[width=.50\textwidth]{figures/descriptives/ratio_federal_total.pdf}
+\end{figure}
+
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Preview of findings}
+\small
+\begin{itemize}\setlength\itemsep{0.7em}
+
+    \item \textbf{Validation:} First I show that the \alert{construction of federal prisons} significantly \alert{decreased the overcrowding of state prisons}.
+    \pause
+    \item \textbf{Main result}: Federal prison construction leads to \alert{increases in pretrial processing} and in the \alert{number of individuals sentenced}.
+    \pause
+    \item Municipalities closer to new federal prisons experience:
+    \begin{itemize}
+        \item Higher \alert{local (state) incarceration rates}
+        \item A greater likelihood of \alert{pretrial detention}
+        \item \alert{No change} in monetary fines
+    \end{itemize}
+    \pause
+    \item \textbf{Mechanisms:} Results are consistent with changes in \textbf{judicial behavior driven by capacity constraints}, rather than solely by increased caseloads or resource constraints, although these channels cannot be fully ruled out.
+    
+    
+\end{itemize}
+\end{frame}
+
+\section{Theory}
+
+\begin{frame}
+\frametitle{Theory and Context}
+\small
+\begin{itemize}\setlength\itemsep{0.7em}
+    
+    \item Existing work highlights three channels through which criminal justice outcomes may respond to institutional constraints:
+    \begin{itemize}\setlength\itemsep{0.5em}
+        \item \textbf{Salience}: incarceration becomes more likely when prison is a more salient punishment {\footnotesize\color{gray}\citep{Galinato-2020}.}
+        \item \textbf{Fiscal / capacity}: incarceration falls when prison is more costly or space is limited {\footnotesize\color{gray}\citep{Ouss-Incentives}.}
+        \item \textbf{Time}: heavier caseloads can alter case processing and sentencing decisions {\footnotesize\color{gray}\citep{Yang-Resource-AEJ}.}
+    \end{itemize}
+    \pause
+    
+    \item In this context, the most relevant channel is \textbf{capacity}: nearby federal prison construction relaxes local prison constraints.
+    \pause
+    
+    \item By contrast, the electoral and local fiscal incentives emphasized in prior U.S. work are less likely to operate in the same way in the Mexican case.
+\end{itemize}
+\end{frame}
+
+\begin{frame}
+\frametitle{Interpretation and Caveats}
+\small
+\begin{itemize}\setlength\itemsep{0.7em}
+    
+    \item \textbf{Interpretation:} The findings --- more pretrial processing, more pretrial detention, more prison sentences, and no change in monetary fines --- suggest that relaxing capacity increases the use of incarceration.
+    \pause
+    
+    \item This pattern is more consistent with a capacity-based explanation than with a purely administrative response.
+    \pause
+    
+    \item \textbf{Caveat:} Capacity expansions may also increase policing and case inflows, so part of the effect may reflect higher caseload pressure rather than judicial behavior alone.
+    \pause
+    
+    \item I therefore interpret the results as evidence that relaxing capacity constraints changes criminal justice outcomes, while the precise margin remains harder to fully disentangle.
+\end{itemize}
+\end{frame}
+
+\section{Data}
+
+\begin{frame}
+\frametitle{Data}
+\small
+\begin{itemize}\setlength\itemsep{0.65em}
+    \item Two administrative datasets covering all formally processed individuals in Mexico (local level):
+    \begin{itemize}\setlength\itemsep{0.65em}
+        \item \textbf{Pre-trial dataset}: early judicial decisions (detention vs.\ release) % why would 
+        \item \textbf{Criminal courts dataset}: final outcomes (sentences, fines, acquittals)
+    \end{itemize}
+    \pause
+    \item Both include rich individual-level information that lets me observe the \alert{municipality of residence}.
+    \item Records aggregated to \alert{municipality $\times$ bimonth} level, matched with geolocated data on \alert{local prison capacity and population}.
+    
+    
+\end{itemize}
+\end{frame}
+
+\section{Empirical Strategy}
+
+\begin{frame}
+\frametitle{Empirical Strategy}
+\small
+\begin{itemize}\setlength\itemsep{0.65em}
+\item I estimate a generalized difference-in-difference design with staggered adoption \citep{Callaway}.
+
+    \begin{equation}
+\label{eq:eq1}
+    Y_{mt} = \phi + \beta TreatPost_{tm} + \gamma_t + \tau_m + \epsilon_{mt},
+\end{equation}
+\small
+\item $TreatPost_{tm}$: time-varying dummy variable that equals one if, at time $t$, the closest federal prison to a municipality is within 300 kilometers (KM). (Robust to other definitions) % Second, the choice of the 300KM threshold was taken by a data-driven approach. This distance captures both the median (207 km) and mean (212 km) minimum distances from each municipality to a federal prison, providing adequate variation for the new prison’s construction to affect relevant municipalities
+\pause
+\item Outcomes are total counts of the variables, and I use the log transformation to handle the presence of outliers (robust to other transformations)
+\pause
+ \item \textbf{Interpretation (Generalized DiD):} The estimate compares how sentencing behavior changed in municipalities close to where a new prison opened — before versus after the opening — against municipalities where no prison opened over the same period.
+\end{itemize}
+\end{frame}
+
+\section{Main Results}
+
+\begin{frame}
+\frametitle{}
+\tiny
+\begin{figure}[!htpb]
+   \centering
+   \tiny
+   \label{fig:}
+   \caption{Relative overcrowding (local prisons)}
+   \includegraphics[width=.60\textwidth]{figures/events_final/relative_overcrowding_event_all.pdf}
+\end{figure}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{}
+\label{results}
+
+\begin{table}[!h]
+\centering
+\caption{\label{tab:att_processing} ATT Estimates: Processing Outcomes (CSDID, no controls)}
+\resizebox{\linewidth}{!}{
+\begin{tabular}{lccccc}
+\hline \\[-1.8ex]
+ & \shortstack{log(total \\ processed+1)} & \shortstack{log(pre-trial \\ detention+1)} & \shortstack{log(released+1)} & \shortstack{Pre-trial det. / \\ processed} & \shortstack{Released / \\ processed} \\
+\hline \\[-1.8ex]
+ATT & 0.082$^{***}$ & 0.071$^{***}$ & 0.050$^{***}$ & 0.040$^{***}$ & 0.006 \\
+ & {[0.020]} & {[0.020]} & {[0.016]} & {[0.014]} & {[0.007]} \\
+\hline \\[-1.8ex]
+Mean dep.\ var.\ (control) & 1.047 & 0.950 & 0.298 & 0.468 & 0.067 \\
+Observations & 176{,}904 & 176{,}904 & 176{,}904 & 176{,}904 & 176{,}904 \\
+$R^{2}$ (within, TWFE) & 0.002 & 0.001 & 0.000 & 0.562 & 0.057 \\
+\bottomrule
+\hline \\[-1.8ex]  \multicolumn{6}{l} {\parbox[t]{13cm}{ \textit{Notes:} $^{***}$ p$<$0.01, $^{**}$ p$<$0.05, $^{*}$ p$<$0.10.}} \\
+\end{tabular}
+}
+\end{table}
+
+\hyperlink{thresholds}{\beamerbutton{Thresholds}} \hyperlink{extensive}{\beamerbutton{Chen and Roth (2024)}}
+\hyperlink{robustp}{\beamerbutton{Other models}}
+
+\end{frame}
+
+
+\begin{frame}[fragile]
+\frametitle{}
+\tiny
+\begin{figure}[!htpb]
+   \centering
+   \tiny
+   \label{fig:}
+   \includegraphics[width=.80\textwidth]{figures/events_final/process_levels_event2.pdf}
+\end{figure}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{}
+\tiny
+\begin{figure}[!htpb]
+   \centering
+   \tiny
+   \label{fig:}
+   \includegraphics[width=.58\textwidth]{figures/events_final/process_rates_event2.pdf}
+\end{figure}
+\end{frame}
+
+
+\begin{frame}[fragile]
+\frametitle{}
+\label{results2}
+
+\begin{table}[!h]
+\centering
+\caption{\label{tab:att_sentencing} ATT Estimates: Sentencing Outcomes (CSDID, no controls)}
+\resizebox{\linewidth}{!}{
+\begin{tabular}{lcccccccc}
+\hline \\[-1.8ex]
+ & \shortstack{log(total \\ sentenced+1)} & \shortstack{log(not \\ guilty+1)} & \shortstack{log(guilty \\ (prison)+1)} & \shortstack{log(guilty \\ (money)+1)} & \shortstack{Time \\ Sentenced} & \shortstack{Guilty / \\ Sentenced} & \shortstack{Prison / \\ Guilty} & \shortstack{Money / \\ Guilty} \\
+\hline \\[-1.8ex]
+ATT & 0.082$^{***}$ & 0.030$^{**}$ & 0.066$^{***}$ & 0.006 & -0.003 & 0.021 & 0.035$^{***}$ & 0.003 \\
+ & {[0.018]} & {[0.014]} & {[0.018]} & {[0.008]} & {[0.025]} & {[0.013]} & {[0.013]} & {[0.004]} \\
+\hline \\[-1.8ex]
+Mean dep.\ var.\ (control) & 0.889 & 0.261 & 0.806 & 0.088 & 0.660 & 0.432 & 0.467 & 0.015 \\
+Observations & 176{,}904 & 176{,}904 & 176{,}904 & 176{,}904 & 176{,}904 & 176{,}904 & 176{,}904 & 176{,}904 \\
+$R^{2}$ (within, TWFE) & 0.001 & 0.000 & 0.001 & 0.001 & 0.000 & 0.726 & 0.931 & 0.014 \\
+\bottomrule
+\hline \\[-1.8ex]  \multicolumn{9}{l} {\parbox[t]{17cm}{ \textit{Notes:}  $^{***}$ p$<$0.01, $^{**}$ p$<$0.05, $^{*}$ p$<$0.10. }} \\
+\end{tabular}
+}
+\end{table}
+
+\hyperlink{thresholds}{\beamerbutton{Thresholds}} \hyperlink{extensive}{\beamerbutton{Chen and Roth (2024)}}
+\hyperlink{robusts}{\beamerbutton{Other models}}
+
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{}
+\tiny
+\begin{figure}[!htpb]
+   \centering
+   \tiny
+   \label{fig:}
+   \includegraphics[width=.8\textwidth]{figures/events_final/sentence_levels_event2.pdf}
+\end{figure}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{}
+\tiny
+\begin{figure}[!htpb]
+   \centering
+   \tiny
+   \label{fig:}
+   \includegraphics[width=.80\textwidth]{figures/events_final/sentence_rate_event2.pdf}
+\end{figure}
+\end{frame}
+
+\section{Conclusion}
+
+\begin{frame}
+\frametitle{Conclusion}
+\small
+
+\begin{itemize}\setlength\itemsep{0.8em}
+    \item I provide evidence that exogenous increases in prison capacity affect criminal justice outcomes.
+    
+    \item Federal prison construction relieves overcrowding in local state prisons and increases pretrial processing, pretrial detention, and prison sentences.
+    
+    \item More broadly, incarceration rates may be shaped not only by underlying crime and legal criteria, but also by institutional capacity.
+    
+    \item In that sense, prison construction may do more than absorb existing prisoners: it may change the behavior of the criminal justice system itself.
+\end{itemize}
+\end{frame}
+
+\begin{frame}
+\frametitle{}
+\centering
+\vfill
+{\Large \textbf{Thank You}}
+\vspace{.5cm}
+
+\scriptsize
+\begin{tabular}{cl}
+    \faEnvelope & \href{mailto:ez2490@nyu.edu}{ez2490@nyu.edu} \\[0.5em]
+    \faGithub   & \href{https://github.com/ezagoc}{github.com/ezagoc} \\
+\end{tabular}
+
+\vfill
+\end{frame}
+
+\begin{frame}{References}
+\tiny
+    \bibliographystyle{apsr}
+    \typeout{}
+
+    \singlespacing
+
+    \bibliographystyle{apsr}
+    \bibliography{prisons}
+\end{frame}
+
+\appendix
+
+\begin{frame}
+\frametitle{}
+\label{thresholds}
+\small
+
+\begin{figure}[!htpb]
+            \centering
+            % As we can see mostly all newspapers used that last phrase to build the narrative, as well as saying that he was against the march
+           \label{fig:fig_HTs}
+    \includegraphics[width=9cm, height=7cm]{figures/atts/robustness_diff_threshold2.pdf}
+\end{figure}
+
+\hyperlink{results}{\beamerbutton{Back}}
+
+\end{frame}
+
+\begin{frame}{Robustness to other models}
+\frametitle{Robustness to other models}
+\label{robustp}
+
+\begin{figure}[!htpb]
+            \centering
+           \label{fig:fig_HTs}
+    \includegraphics[width=9cm, height=6.5cm]{figures/atts/first_instance_robustness2.pdf}
+\end{figure}
+
+\hyperlink{results}{\beamerbutton{Back}}
+
+\end{frame}
+
+\begin{frame}{Robustness to other models}
+\frametitle{Robustness to other models}
+\label{robusts}
+
+\begin{figure}[!htpb]
+            \centering
+           \label{fig:fig_HTs}
+    \includegraphics[width=9cm, height=6.5cm]{figures/atts/second_instance_robustness2.pdf}
+\end{figure}
+
+\hyperlink{results2}{\beamerbutton{Back}}
+
+\end{frame}
+
+\begin{frame}{}
+\frametitle{Extensive vs. Intensive Margins}
+\label{extensive}
+
+\begin{figure}[!htpb]
+            \centering
+           \label{fig:fig_HTs}
+    \includegraphics[width=9cm, height=6.5cm]{figures/atts/robustness_chen_roth.pdf}
+\end{figure}
+
+\hyperlink{results}{\beamerbutton{Back}}
+
+\end{frame}
+
+\end{document}

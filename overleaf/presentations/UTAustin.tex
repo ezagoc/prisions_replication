@@ -1,0 +1,255 @@
+\documentclass[10pt,aspectratio=169]{beamer}
+
+
+  \usetheme{NYU}      % or try Darmstadt, Madrid, Warsaw, ...
+  \usecolortheme{default} % or try albatross, beaver, crane, ...
+  \usefonttheme{default}  % or try serif, structurebold, ...
+  \setbeamertemplate{navigation symbols}{}
+  \setbeamertemplate{caption}[numbered]
+\usepackage{appendixnumberbeamer}
+\usepackage{mymacro}
+
+
+\newcommand{\ind}{\perp\!\!\!\!\perp} 
+\usepackage{hyperref}
+\usepackage{minted}
+\usepackage[round]{natbib}
+
+\hypersetup{
+    colorlinks=blue,
+    linkcolor=blue,
+    filecolor=blue,      
+    urlcolor=blue,
+    citecolor=blue,
+}
+
+% If you want to print handouts
+%\documentclass[handout]{beamer}
+
+% Changing the fonts: this will make the slides more readable and the math look like regular tex math
+%\usefonttheme{arial}
+
+% Titles will appear in Small Cap Serif
+
+
+
+% -----------------------------------------
+% Center the Frame Title
+% -----------------------------------------
+
+
+
+
+% -----------------------------------------
+% Number the slides
+% -----------------------------------------
+
+\setbeamertemplate{footline}[frame number]
+
+% -----------------------------------------
+% Get rid of the irritating navigation bar
+% -----------------------------------------
+
+\setbeamertemplate{navigation symbols}{}
+% -----------------------------------------
+% Begin Document
+% -----------------------------------------
+\title{\Large\textsc{Capacity Constraints,
+Case-load Increases and
+Incarceration Rates: Evidence
+from Prison Constructions}}
+\author[Zago] % Esto es lo que sale en el footer
+{\textbf{Eduardo Zago}\inst{1}  \vspace{10pt}}
+
+\institute []% Esto es lo que sale en el footer
+{  \inst{1}   PhD Student NYU Politics}
+
+\date{\textsc{}}
+
+\titlegraphic{\hfill\includegraphics[height=1.5cm]{nyu_stacked_color}}
+
+
+\begin{document}
+\maketitle
+
+\section{Motivation}
+
+\begin{frame}
+\frametitle{Motivation}
+
+\small
+\begin{itemize}\setlength\itemsep{0.65em}
+\item  Prison overcrowding is a global phenomenon, in 2021, 118 countries reported prison populations exceeding official capacity {\footnotesize\color{gray}\citep{GlobalPrisonTrends}}
+\pause
+\item It is often framed as a \alert{state capacity problem}, leading many policymakers to view the appropriate response as a \textbf{further expansion of state capacity}.
+\pause
+\item However, actual evidence of this is scarce since: 
+\begin{enumerate}\setlength\itemsep{0.65em}
+    \item \textbf{criminal justice outcomes depend on many actors: judges, prosecutors, police, prison guards.}
+    \pause
+    \item \textbf{increases in capacity are endogenous to prior levels and incarceration rates.}
+\end{enumerate}
+\pause
+\item General equilibrium effects are often overlooked.
+\end{itemize}
+\end{frame}
+
+\begin{frame}{}
+\frametitle{}
+\tiny
+\begin{figure}[!htpb]
+            \centering
+            % Also happened on twitter, in particular an interview of a demonstrator wearing a ski mask saying that AMLO should not continue in office
+            \caption{Evolution of state level capacity vs. population}
+           \label{fig:fig_HTs}
+    \includegraphics[width=11.5cm, height=7cm]{figures/descriptives/population_v_capacity.pdf}
+\end{figure}
+\end{frame}
+
+
+\section{Research Question}
+\begin{frame}
+\frametitle{Research Question and Strategy}
+\small
+\begin{itemize}\setlength\itemsep{0.65em}
+    \item Capacity-expanding policies may indirectly shape the behavior of these agents — raising fundamental questions about \textbf{institutional constraints and incentives}.
+\end{itemize}
+
+\pause
+\vspace{0.5em}
+\begin{center}
+    \normalsize \textbf{RQ: Do judges sentence more individuals to prison when capacity is increased?}
+\end{center}
+\vspace{0.5em}
+
+\pause
+
+\begin{itemize}\setlength\itemsep{0.65em}
+    \item I exploit the staggered construction of \textbf{federal} prisons across Mexico as plausibly exogenous shocks to \textbf{local} prison capacity trends.
+    \pause
+    \item The identification strategy relies on three institutional features: 
+    \begin{enumerate}\setlength\itemsep{0.65em}
+        \item Judges must assign inmates to the nearest available facility.\pause
+        \item State prisons also house federal prisoners.\pause
+        \item New federal prisons were built to relocate federal inmates — not to address local capacity constraints.
+    \end{enumerate}
+\end{itemize}
+\end{frame}
+
+
+\section{Contribution}
+\begin{frame}
+\frametitle{Contribution}
+\small
+
+\begin{itemize}\setlength\itemsep{0.65em}
+    \item \textbf{Extralegal influences on judicial behavior} — Unlike prior U.S.-focused work linking sentencing to fiscal or electoral incentives {\footnotesize\color{gray}\citep{Ouss-Incentives, Dippel, Gordon-Judges-Election}}
+    \begin{itemize}
+        \item \alert{Mexican judges had neither} — yet still responded to prison capacity changes, making the findings especially compelling.
+    \end{itemize}
+\pause
+    \item \textbf{Institutional constraints \& criminal justice} — Where U.S. evidence shows caseload pressure leads to fewer incarcerations and more plea deals due to time constraints {\footnotesize\color{gray}\citep{Yang-Resource-AEJ}}
+    \begin{itemize}
+        \item \alert{I find the opposite}: judges send more people to prison under exogenous caseload increases.
+    \end{itemize}
+\pause
+    \item \textbf{Drivers of rising incarceration} — Adds to a largely U.S.-focused literature {\footnotesize\color{gray}\citep{Mukherjee-Private, Pfaff2007prison, Galinato-2020}} by identifying supply-side prison capacity as a causal driver of sentencing in a non-U.S. context.
+\end{itemize}
+\end{frame}
+
+\section{Data}
+
+\begin{frame}
+\frametitle{Data}
+\small
+\begin{itemize}\setlength\itemsep{0.65em}
+    \item Two administrative datasets covering all formally processed individuals in Mexico (local level):
+    \begin{itemize}\setlength\itemsep{0.65em}
+        \item \textbf{Pre-trial dataset}: early judicial decisions (detention vs.\ release)
+        \item \textbf{Criminal courts dataset}: final outcomes (sentences, fines, acquittals)
+    \end{itemize}
+    \pause
+    \item Both include rich individual-level information that lets me observe the \alert{municipality of residence}.
+    \item Records aggregated to \alert{municipality $\times$ bimonth} level, matched with geolocated data on \alert{local prison capacity and population}.
+    \pause
+    \item \textbf{Interpretation (Generalized DiD):} The estimate compares how sentencing behavior changed in municipalities close to where a new prison opened — before versus after the opening — against municipalities where no prison opened over the same period.
+\end{itemize}
+\end{frame}
+
+\section{Results}
+\tiny
+\begin{frame}[fragile]
+\frametitle{}
+\label{results}
+\begin{figure}[!htpb]
+   \centering
+   \label{fig:fmv}
+   \includegraphics[width=.7\textwidth]{figures/atts/att_presentation.pdf}
+\end{figure}
+\end{frame}
+
+\section{Mechanisms}
+
+\begin{frame}[fragile]
+\frametitle{}
+\tiny
+\begin{figure}[!htpb]
+   \centering
+   \tiny
+   \label{fig:}
+   \includegraphics[width=.60\textwidth]{figures/events_final/process_rates_event.pdf}
+   %\caption*{ \footnotesize{This Figure presents the coefficients and 95\% confidence intervals for the Log SMI After Instrument for different municipality characteristics obtained from INEGI's Census. All dependent variables are in logs. Robust standard errors are estimated. We use Twitter user, population, offline participation (instrumented by weather) and Tweets with HTs posted before 8M as controls. We further include state FEs.}}
+\end{figure}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{}
+\tiny
+\begin{figure}[!htpb]
+   \centering
+   \tiny
+   \label{fig:}
+   \includegraphics[width=.8\textwidth]{figures/events_final/sentence_rate_event.pdf}
+\end{figure}
+\end{frame}
+
+\begin{frame}
+\frametitle{}
+\tiny
+\begin{figure}[!htpb]
+   \centering
+   \tiny
+   \label{fig:}
+   \caption{Relative overcrowding (local prisons)}
+   \includegraphics[width=.60\textwidth]{figures/events_final/relative_overcrowding_event.pdf}
+\end{figure}
+\end{frame}
+
+\begin{frame}
+\frametitle{}
+\centering
+\vfill
+{\Large \textbf{Thank You}}
+\vspace{.5cm}
+
+\scriptsize
+\begin{tabular}{cl}
+    \faEnvelope & \href{mailto:ez2490@nyu.edu}{ez2490@nyu.edu} \\[0.5em]
+    \faGithub   & \href{https://github.com/ezagoc}{github.com/ezagoc} \\
+\end{tabular}
+
+\vfill
+\end{frame}
+
+\begin{frame}{References}
+\tiny
+    \bibliographystyle{apsr}
+    \typeout{}
+
+    \singlespacing
+
+    \bibliographystyle{apsr}
+    \bibliography{prisons}
+\end{frame}
+
+\end{document}

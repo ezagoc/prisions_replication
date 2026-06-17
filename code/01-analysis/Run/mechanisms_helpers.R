@@ -19,6 +19,14 @@ build_mechanisms_panel <- function(project_root) {
   }
 
   processing <- read_periods("processing")
+  processing <- processing |>
+    mutate(
+      non_marg_condition = pmax(total_processed - marg_condition, 0),
+      formal_prision_non_marg = pmax(
+        formal_prision - formal_prision_marg,
+        0
+      )
+    )
   sentencing <- read_periods("sentencing")
 
   duplicate_crime_columns <- paste0("crime_", 1:14)
@@ -32,7 +40,12 @@ build_mechanisms_panel <- function(project_root) {
 
   outcome_families <- list(
     crime_caseloads = paste0("crime_", crime_codes),
-    marginal_processing = c("marg_condition", "formal_prision_marg"),
+    marginal_processing = c(
+      "marg_condition",
+      "non_marg_condition",
+      "formal_prision_marg",
+      "formal_prision_non_marg"
+    ),
     pretrial_by_crime = paste0("formal_prision_crime_", crime_codes),
     release_by_crime = paste0("free_crime_", crime_codes),
     prison_sentence_by_crime = paste0("sent_prison_crime_", crime_codes),
@@ -188,8 +201,11 @@ mechanism_label <- function(variable) {
     str_detect(variable, "^sentence_length_") ~
       sentence_length_labels[sentence_length_code],
     variable == "marg_condition" ~ "Marginal-condition cases",
+    variable == "non_marg_condition" ~ "Non-marginal-condition cases",
     variable == "formal_prision_marg" ~
       "Pretrial detention, marginal-condition cases",
+    variable == "formal_prision_non_marg" ~
+      "Pretrial detention, non-marginal-condition cases",
     TRUE ~ variable
   )
 }

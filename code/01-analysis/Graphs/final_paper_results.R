@@ -70,6 +70,12 @@ theme_event <- function() {
     )
 }
 
+csdid_controls_note <- paste0(
+  "The treatment variable is an indicator for federal prison construction ",
+  "within 300KM of a municipality. CSDID controls are PMASC18\\_, VP\\_TV, ",
+  "VP\\_RADIO, and PNOTRABA."
+)
+
 plot_faceted_event <- function(data, labels, filename, ncol = 2) {
   plot_data <- data |>
     filter(
@@ -104,6 +110,16 @@ plot_faceted_event <- function(data, labels, filename, ncol = 2) {
 }
 
 plot_overlay_event <- function(data, labels, filename) {
+  dodge <- position_dodge(width = 0.7)
+  manual_colors <- c(
+    "black",
+    "grey72",
+    "#2F6FB3",
+    "grey45",
+    "#7FA6D6",
+    "grey25"
+  )
+
   plot_data <- data |>
     filter(
       estimator == "CSDID (Controls)",
@@ -119,10 +135,17 @@ plot_overlay_event <- function(data, labels, filename) {
       aes(ymin = conf_low, ymax = conf_high),
       width = 0,
       linewidth = 0.25,
-      position = position_dodge(width = 0.35)
+      position = dodge
     ) +
-    geom_point(size = 0.9, position = position_dodge(width = 0.35)) +
-    scale_color_brewer(palette = "Dark2", name = NULL) +
+    geom_point(aes(shape = outcome_label), size = 1.05, position = dodge) +
+    scale_color_manual(
+      values = manual_colors[seq_along(labels)],
+      name = NULL
+    ) +
+    scale_shape_manual(
+      values = c(16, 17, 15, 18, 3, 4)[seq_along(labels)],
+      name = NULL
+    ) +
     labs(
       x = "Semesters since prison opening",
       y = "Estimated effect, with 95% confidence interval"
@@ -135,6 +158,56 @@ plot_overlay_event <- function(data, labels, filename) {
     device = pdf,
     width = 7.2,
     height = 4.4,
+    units = "in"
+  )
+}
+
+plot_overlay_faceted_event <- function(data, plot_map, filename) {
+  dodge <- position_dodge(width = 0.7)
+
+  plot_data <- data |>
+    filter(
+      estimator == "CSDID (Controls)",
+      variable %in% plot_map$variable,
+      if_all(c(estimate, conf_low, conf_high), is.finite)
+    ) |>
+    left_join(plot_map, by = "variable") |>
+    mutate(
+      status_label = factor(status_label, levels = unique(plot_map$status_label)),
+      facet_label = factor(facet_label, levels = unique(plot_map$facet_label))
+    )
+
+  plot <- ggplot(plot_data, aes(x = time, y = estimate, color = status_label)) +
+    geom_hline(yintercept = 0, color = "grey50", linewidth = 0.3) +
+    geom_vline(xintercept = 0, color = "grey50", linetype = "dashed", linewidth = 0.3) +
+    geom_errorbar(
+      aes(ymin = conf_low, ymax = conf_high),
+      width = 0,
+      linewidth = 0.25,
+      position = dodge
+    ) +
+    geom_point(aes(shape = status_label), size = 1.05, position = dodge) +
+    facet_wrap(vars(facet_label), scales = "free_y", ncol = 2) +
+    scale_color_manual(
+      values = c("black", "grey72", "#2F6FB3")[seq_along(unique(plot_map$status_label))],
+      name = NULL
+    ) +
+    scale_shape_manual(
+      values = c(16, 17, 15)[seq_along(unique(plot_map$status_label))],
+      name = NULL
+    ) +
+    labs(
+      x = "Semesters since prison opening",
+      y = "Estimated effect, with 95% confidence interval"
+    ) +
+    theme_event()
+
+  ggsave(
+    plot,
+    filename = file.path(figure_dir, filename),
+    device = pdf,
+    width = 7.2,
+    height = 4.2,
     units = "in"
   )
 }
@@ -154,7 +227,11 @@ make_att_table <- function(att_data, metadata, variables, headers, caption, labe
       filter(estimator == estimator_name) |>
       arrange(match(variable, variables))
     c(
-      ifelse(estimator_name == "CSDID", "ATT, no controls", "ATT, with controls"),
+      ifelse(
+        estimator_name == "CSDID",
+        "Effect of federal prison construction, no controls",
+        "Effect of federal prison construction, with controls"
+      ),
       fmt_num(row$estimate)
     )
   }
@@ -232,7 +309,10 @@ make_controls_att_table <- function(att_data, metadata, variables, headers,
 
   alignment <- paste0("l", str_dup("c", length(variables)))
   rows <- list(
-    c("ATT, with controls", fmt_num(table_data$estimate)),
+    c(
+      "Effect of federal prison construction, with controls",
+      fmt_num(table_data$estimate)
+    ),
     c("", paste0("[", fmt_num(table_data$std_error), "]")),
     c("Controls", rep("Yes", length(variables))),
     c("Observations", fmt_int(meta$observations)),
@@ -479,7 +559,7 @@ plot_faceted_event(
   ncol = 2
 )
 
-make_att_table(
+make_controls_att_table(
   processing_att,
   main_metadata,
   c("total_processed", "formal_prision", "free"),
@@ -490,7 +570,13 @@ make_att_table(
   ),
   "Average treatment effects on arrests",
   "tab:att_arrests",
-  "The table reports CSDID average treatment effects. Standard errors clustered by municipality are in brackets. Outcomes are transformed using \\(\\log(1+y)\\). The outcome labeled Arrests corresponds to total processed individuals in the original data."
+  paste0(
+    "The table reports CSDID average treatment effects with controls. ",
+    "Standard errors clustered by municipality are in brackets. Outcomes ",
+    "are transformed using \\(\\log(1+y)\\). The outcome labeled Arrests ",
+    "corresponds to total processed individuals in the original data. ",
+    csdid_controls_note
+  )
 )
 
 make_att_table(
@@ -510,7 +596,14 @@ make_att_table(
   ),
   "Average treatment effects on sentencing outcomes",
   "tab:att_sentencing",
-  "The table reports CSDID average treatment effects. Standard errors clustered by municipality are in brackets. Count outcomes are transformed using \\(\\log(1+y)\\). Sentence Length is the average sentence length among sentenced individuals, with zeros assigned when no individuals are sentenced in a municipality-semester."
+  paste0(
+    "The table reports CSDID average treatment effects. Standard errors ",
+    "clustered by municipality are in brackets. Count outcomes are ",
+    "transformed using \\(\\log(1+y)\\). Sentence Length is the average ",
+    "sentence length among sentenced individuals, with zeros assigned when ",
+    "no individuals are sentenced in a municipality-semester. ",
+    csdid_controls_note
+  )
 )
 
 mechanism_events <- readRDS(file.path(
@@ -526,6 +619,68 @@ mechanism_att <- readRDS(file.path(
 ))
 
 mechanisms <- build_mechanisms_panel(project_root)
+
+estimate_mechanism_extra <- function(variable) {
+  model <- att_gt(
+    yname = variable,
+    tname = "m_time",
+    idname = "code_inegi",
+    gname = "event_time",
+    xformla = ~PMASC18_ + VP_TV + VP_RADIO + PNOTRABA,
+    control_group = "nevertreated",
+    clustervars = "code_inegi",
+    data = mechanisms$panel_controls
+  )
+  dynamic <- aggte(MP = model, type = "dynamic", min_e = -60, max_e = 60)
+  simple <- aggte(MP = model, type = "simple")
+
+  list(
+    event = tibble(
+      time = dynamic$egt,
+      estimate = dynamic$att.egt,
+      std_error = dynamic$se.egt,
+      variable = variable,
+      estimator = "CSDID (Controls)",
+      conf_low = estimate - 1.96 * std_error,
+      conf_high = estimate + 1.96 * std_error,
+      status = "ok",
+      error = NA_character_,
+      outcome_order = NA_integer_,
+      family = "marginal_processing",
+      outcome_label = mechanism_label(variable)
+    ),
+    att = tibble(
+      variable = variable,
+      estimator = "CSDID (Controls)",
+      estimate = simple$overall.att,
+      std_error = simple$overall.se,
+      conf_low = estimate - 1.96 * std_error,
+      conf_high = estimate + 1.96 * std_error,
+      conf_low_90 = estimate - 1.645 * std_error,
+      conf_high_90 = estimate + 1.645 * std_error,
+      status = "ok",
+      error = NA_character_,
+      outcome_order = NA_integer_,
+      family = "marginal_processing",
+      outcome_label = mechanism_label(variable)
+    )
+  )
+}
+
+extra_marginal_vars <- c("non_marg_condition", "formal_prision_non_marg")
+missing_marginal_vars <- setdiff(extra_marginal_vars, unique(mechanism_att$variable))
+if (length(missing_marginal_vars) > 0) {
+  extra_marginal_estimates <- map(missing_marginal_vars, estimate_mechanism_extra)
+  mechanism_events <- bind_rows(
+    mechanism_events,
+    map_dfr(extra_marginal_estimates, "event")
+  )
+  mechanism_att <- bind_rows(
+    mechanism_att,
+    map_dfr(extra_marginal_estimates, "att")
+  )
+}
+
 mechanism_metadata <- mechanisms$panel |>
   select(code_inegi, treat, all_of(unique(mechanism_att$variable))) |>
   summarise(
@@ -580,18 +735,27 @@ plot_faceted_event(
   ncol = 2
 )
 
-plot_faceted_event(
+plot_overlay_faceted_event(
   mechanism_events,
-  c(marg_condition = "Marginal-condition arrests"),
-  "es_marginalized_arrests.pdf",
-  ncol = 1
-)
-
-plot_faceted_event(
-  mechanism_events,
-  c(formal_prision_marg = "Pre-trial detention, marginal-condition cases"),
-  "es_marginalized_pretrial.pdf",
-  ncol = 1
+  tibble(
+    variable = c(
+      "marg_condition",
+      "non_marg_condition",
+      "formal_prision_marg",
+      "formal_prision_non_marg"
+    ),
+    status_label = rep(
+      c("Marginal-condition", "Non-marginal-condition"),
+      times = 2
+    ),
+    facet_label = c(
+      "Arrests",
+      "Arrests",
+      "Pre-trial Detention",
+      "Pre-trial Detention"
+    )
+  ),
+  "es_marginalized_status.pdf"
 )
 
 plot_overlay_event(
@@ -627,20 +791,39 @@ make_controls_att_table(
   crime_headers,
   "Average treatment effects on arrests by type of crime",
   "tab:att_crime_type",
-  "The table reports CSDID average treatment effects with controls. Standard errors clustered by municipality are in brackets. Outcomes are counts by crime category transformed using \\(\\log(1+y)\\)."
+  paste0(
+    "The table reports CSDID average treatment effects with controls. ",
+    "Standard errors clustered by municipality are in brackets. Outcomes ",
+    "are counts by crime category transformed using \\(\\log(1+y)\\). ",
+    csdid_controls_note
+  )
 )
 
 make_controls_att_table(
   mechanism_att,
   mechanism_metadata,
-  c("marg_condition", "formal_prision_marg"),
+  c(
+    "marg_condition",
+    "non_marg_condition",
+    "formal_prision_marg",
+    "formal_prision_non_marg"
+  ),
   c(
     "\\shortstack{Marginal-condition\\\\ arrests}",
-    "\\shortstack{Marginal-condition\\\\ pre-trial detention}"
+    "\\shortstack{Non-marginal-condition\\\\ arrests}",
+    "\\shortstack{Marginal-condition\\\\ pre-trial detention}",
+    "\\shortstack{Non-marginal-condition\\\\ pre-trial detention}"
   ),
   "Average treatment effects by defendant socioeconomic status",
   "tab:att_marginalized",
-  "The table reports CSDID average treatment effects with controls. Standard errors clustered by municipality are in brackets. Outcomes are transformed using \\(\\log(1+y)\\). The available mechanism data identify marginal-condition cases and pre-trial detention among marginal-condition cases."
+  paste0(
+    "The table reports CSDID average treatment effects with controls. ",
+    "Standard errors clustered by municipality are in brackets. Outcomes ",
+    "are transformed using \\(\\log(1+y)\\). Non-marginal-condition outcomes ",
+    "are constructed as total cases minus marginal-condition cases before ",
+    "the log transformation. ",
+    csdid_controls_note
+  )
 )
 
 sentence_category_vars <- paste0("sentence_length_", 1:13)
@@ -659,7 +842,13 @@ make_controls_att_table(
   sentence_category_headers,
   "Average treatment effects by sentence-length category",
   "tab:att_sentence_categories",
-  "The table reports CSDID average treatment effects with controls. Standard errors clustered by municipality are in brackets. Outcomes are counts of sentenced individuals in each sentence-length category, transformed using \\(\\log(1+y)\\)."
+  paste0(
+    "The table reports CSDID average treatment effects with controls. ",
+    "Standard errors clustered by municipality are in brackets. Outcomes ",
+    "are counts of sentenced individuals in each sentence-length category, ",
+    "transformed using \\(\\log(1+y)\\). ",
+    csdid_controls_note
+  )
 )
 
 message("Final paper figures written to: ", figure_dir)

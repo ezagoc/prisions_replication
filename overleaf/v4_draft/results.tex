@@ -85,29 +85,19 @@ Table \ref{tab:att_crime_type} reports the average effects for all available cri
 
 \subsubsection*{Arrests of marginalized individuals}
 
-The available mechanism data also identify cases involving marginal-condition defendants. Figures \ref{fig:es_marginalized_arrests} and \ref{fig:es_marginalized_pretrial} show positive post-treatment dynamics for arrests and pre-trial detention among this group. The estimates are best interpreted as evidence on composition: they suggest that the increase in arrests includes more socially vulnerable defendants, although the available data do not separately identify every socioeconomic category discussed in the descriptive section.
+The available mechanism data also identify cases involving marginal-condition defendants. Figure \ref{fig:es_marginalized_status} compares marginal-condition cases with non-marginal-condition cases, defined as the total minus marginal-condition cases before applying the log transformation. The figure separates arrests and pre-trial detention into panels and overlays the two defendant groups within each panel. The estimates are best interpreted as evidence on composition: both groups show positive post-treatment effects, but the increase is larger for marginal-condition defendants. This suggests that the increase in arrests includes more socially vulnerable defendants, although the available data do not separately identify every socioeconomic category discussed in the descriptive section.
 
 \begin{figure}[!htpb]
     \centering
-    \caption{Dynamic effects of prison openings on arrests of marginalized individuals}
-    \label{fig:es_marginalized_arrests}
-    \includegraphics[width=0.85\textwidth]{../results/figures/final_paper/es_marginalized_arrests.pdf}
+    \caption{Dynamic effects of prison openings by defendant marginal condition}
+    \label{fig:es_marginalized_status}
+    \includegraphics[width=\textwidth]{../results/figures/final_paper/es_marginalized_status.pdf}
     \begin{minipage}{0.95\textwidth}
-    \footnotesize \emph{Notes:} The figure reports CSDID event-study estimates with controls. Points denote dynamic treatment effects and vertical bars report 95 percent confidence intervals. Outcomes are transformed using \(\log(1+y)\).
+    \footnotesize \emph{Notes:} The figure reports CSDID event-study estimates with controls. Points denote dynamic treatment effects and vertical bars report 95 percent confidence intervals. Outcomes are transformed using \(\log(1+y)\). Non-marginal-condition arrests are total arrests minus marginal-condition arrests before transformation. Non-marginal-condition pre-trial detention is total pre-trial detention minus marginal-condition pre-trial detention before transformation.
     \end{minipage}
 \end{figure}
 
-\begin{figure}[!htpb]
-    \centering
-    \caption{Dynamic effects of prison openings on pre-trial detention of marginalized individuals}
-    \label{fig:es_marginalized_pretrial}
-    \includegraphics[width=0.85\textwidth]{../results/figures/final_paper/es_marginalized_pretrial.pdf}
-    \begin{minipage}{0.95\textwidth}
-    \footnotesize \emph{Notes:} The figure reports CSDID event-study estimates with controls. Points denote dynamic treatment effects and vertical bars report 95 percent confidence intervals. Outcomes are transformed using \(\log(1+y)\).
-    \end{minipage}
-\end{figure}
-
-Table \ref{tab:att_marginalized} reports the corresponding average effects. The estimates are positive for marginal-condition arrests (0.091) and for pre-trial detention among marginal-condition defendants (0.061), which is consistent with the interpretation that the additional processing includes socially vulnerable defendants.
+Table \ref{tab:att_marginalized} reports the corresponding average effects. The estimate for marginal-condition arrests is 0.091, compared with 0.069 for non-marginal-condition arrests. For pre-trial detention, the estimate is 0.061 for marginal-condition defendants and 0.043 for non-marginal-condition defendants. This pattern is consistent with the interpretation that the additional processing includes socially vulnerable defendants and is somewhat more pronounced among them.
 
 \input{../results/tables/final_paper/tab_att_marginalized.tex}
 

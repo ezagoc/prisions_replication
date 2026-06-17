@@ -41,8 +41,73 @@ Run the analysis using the scripts in `code/`, then synchronize the generated
 paper assets:
 
 ```bash
+make main-event-studies
+```
+
+This runs the main event-study regressions, saves their RDS objects under
+`results/rds/main_event_studies/`, creates the paper PDFs under
+`results/figures/events_final/`. To synchronize existing outputs into Overleaf
+without rerunning the models:
+
+```bash
 make sync-results
 ```
+
+To compare the main event studies with and without controls:
+
+```bash
+make main-event-studies-controls
+```
+
+This saves estimates under `results/rds/main_event_studies_controls/` and
+figures under `results/figures/main_event_studies_controls/`.
+
+Run the main average-treatment-effect results and presentation figure with:
+
+```bash
+make main-att
+```
+
+This saves ATT estimate objects under `results/rds/main_att/` and PDFs under
+`results/figures/main_att/`.
+
+Run the mechanisms analyses from the interaction panels with:
+
+```bash
+make mechanisms
+```
+
+This estimates event studies and ATTs for crime-specific processing,
+sentencing, caseload, and sentence-length outcomes. Tidy estimates are saved
+under `results/rds/mechanisms_event_studies/` and
+`results/rds/mechanisms_att/`; faceted figures are saved in the corresponding
+folders under `results/figures/`.
+
+To compare mechanism event studies with and without controls:
+
+```bash
+make mechanisms-event-studies-controls
+```
+
+This saves outputs under `results/rds/mechanisms_event_studies_controls/` and
+`results/figures/mechanisms_event_studies_controls/`.
+
+Run the descriptive analyses supported by the curated replication files:
+
+```bash
+make descriptives
+```
+
+Figures are written to `results/figures/descriptives/`, while the summary
+table is written to `results/tables/descriptives/`.
+
+Two additional descriptive scripts require raw inputs that are not currently
+in the repository:
+
+- `make descriptive-maps` requires
+  `data/raw/maps/prisiones_federales.xlsx`.
+- `make descriptive-processing` requires the annual judicial DBF directories
+  under `data/raw/judicial/sentencing/`.
 
 ## Overleaf workflow
 

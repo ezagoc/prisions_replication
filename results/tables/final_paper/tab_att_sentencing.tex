@@ -1,0 +1,25 @@
+\begin{table}[!htpb]\centering
+\caption{Average treatment effects on sentencing outcomes}
+\label{tab:att_sentencing}
+\scriptsize
+\begin{threeparttable}
+\begin{tabular}{@{\extracolsep{0pt}}lcccccc}
+\hline\hline
+ & \shortstack{log\\(Total\\ Sentenced)} & \shortstack{log\\(Guilty\\ (Prison))} & \shortstack{log\\(Guilty\\ (Money))} & \shortstack{log\\(Not\\ Guilty)} & \shortstack{Sentence\\ Length} & \shortstack{log(1 +\\ Sentence\\ Length)} \\
+ & (1) & (2) & (3) & (4) & (5) & (6) \\
+\hline
+ATT, no controls & 0.036 & 0.039 & -0.018 & 0.030 & 0.106 & 0.017 \\
+ & [0.022] & [0.021] & [0.012] & [0.018] & [0.092] & [0.026] \\
+ATT, with controls & 0.035 & 0.031 & 0.028 & 0.049 & 0.008 & -0.018 \\
+ & [0.025] & [0.022] & [0.024] & [0.025] & [0.118] & [0.031] \\
+Controls & Yes & Yes & Yes & Yes & Yes & Yes \\
+Observations & 63,882 & 63,882 & 63,882 & 63,882 & 63,882 & 63,882 \\
+Pure control mean & 1.132 & 1.029 & 0.109 & 0.428 & 2.131 & 0.818 \\
+\hline\hline
+\end{tabular}
+\begin{tablenotes}[flushleft]
+\item \emph{Notes:} The table reports CSDID average treatment effects. Standard errors clustered by municipality are in brackets. Count outcomes are transformed using \(\log(1+y)\). Sentence Length is the average sentence length among sentenced individuals, with zeros assigned when no individuals are sentenced in a municipality-semester.
+\end{tablenotes}
+\end{threeparttable}
+\end{table}
+

@@ -1,0 +1,141 @@
+\documentclass[12pt]{article}
+\usepackage[margin = 1in]{geometry}
+
+\usepackage{amssymb}
+\usepackage{afterpage}
+\usepackage{booktabs}
+\usepackage{threeparttable}
+\usepackage[table]{xcolor}
+
+\input{"../paper_header"}
+\graphicspath{{"Figures/"}{"Figures/study_samples/"}{"Figures/T7.2_new/"}}
+
+\renewenvironment{abstract}
+ {\small
+  \begin{center}
+  \bfseries \abstractname\vspace{-.5em}\vspace{0pt}
+  \end{center}
+  \list{}{
+    \setlength{\leftmargin}{35mm}
+    \setlength{\rightmargin}{\leftmargin}%
+  }
+  \item\relax}
+ {\endlist}
+
+ \usepackage[dvipsnames]{xcolor}
+ \usepackage{adjustbox}
+
+%--------------------------------------------------------------
+% Misc formatting
+%--------------------------------------------------------------
+
+\newcommand{\red}[1]{\textcolor{red}{#1}}
+\newcommand{\blue}[1]{\textcolor{blue}{#1}}
+\newcommand{\orange}[1]{\textcolor{orange}{#1}}
+\newcommand{\violet}[1]{\textcolor{violet}{#1}}
+\newcommand{\var}[1]{\textcolor{internationalkleinblue}{\texttt{#1}}}
+\newcommand{\zvar}[1]{\textcolor{dgreen}{\texttt{#1}}}
+
+% COMMENT OUT TO MAKE BLACK
+%\definecolor{red}{cmyk}{0,0,0,1}
+%\definecolor{blue}{cmyk}{0,0,0,1}
+%\definecolor{orange}{cmyk}{0,0,0,1}
+%\definecolor{violet}{cmyk}{0,0,0,1}
+
+\usepackage{times}
+%\usepackage{helvet}
+%\renewcommand{\familydefault}{\sfdefault}
+\doublespacing
+\emergencystretch 3em
+
+\newcommand{\Figtext}[1]{
+ \begin{tablenotes}[para,flushleft]
+ \hspace{0pt}
+ \hangindent=0.25em
+ #1
+ \end{tablenotes}
+}
+
+\newcommand{\StarnoteBalance}{\footnotesize \textit{Notes}: }
+
+
+%--------------------------------------------------------------
+% Information
+%--------------------------------------------------------------
+
+\newcommand{\titletext}{Capacity Constraints, Case-load Increases and Incarceration Rates: Evidence from Prison Constructions}
+
+\newcommand{\authors}{
+	Eduardo Zago\thanks{PhD Student in Politics, New York University. ez2490@nyu.edu}
+}
+
+\newcommand{\acknowledgements}{.}
+
+
+\newcommand{\abstracttext}{%
+	\begin{abstract}
+		\noindent 
+        Prison overcrowding is a global phenomenon, yet little is known about how policies designed to address it—and the bottlenecks it creates—affect the criminal justice system. This paper studies the causal impact of federal prison construction on judicial sentencing in Mexico. Exploiting the staggered rollout of new federal prisons as plausibly exogenous shocks to local capacity trends, and leveraging institutional rules that mandate judges assign individuals to the nearest facility as well as the practice of housing federal inmates in state prisons, I show that federal prison construction increases both the number of individuals processed in pretrial hearings and those sentenced in trial courts. Municipalities located near a new federal prison experience higher local (state) incarceration rates and a greater likelihood of pretrial detention among processed individuals, but no change in monetary fines. Evidence on mechanisms suggests that these patterns reflect shifts in judicial behavior caused by capacity constraints, rather than being fully explained by higher caseloads from policing or resource constraints, although these channels cannot be completely ruled out.
+		\\ \vspace{2em}
+		
+	\end{abstract}
+}
+
+
+\begin{document}
+
+%--------------------------------------------------------------
+% Toggles for submission
+%--------------------------------------------------------------
+
+%% Title page
+%\anonymoustitlepage
+\fulltitlepage
+
+%% Comment out to double space footnotes
+%\makeatletter
+%\patchcmd{\@footnotetext}{\rule}{\normalsize \doublespacing\rule}{}{}
+%\makeatother
+
+%--------------------------------------------------------------
+% Paper start
+%--------------------------------------------------------------
+
+\input{introduction}
+\input{motivation}
+\input{background}
+%\input{theory}
+\input{data}
+\input{empirical_strategy}
+\input{results}
+%\input{discussion}
+\input{conclusion}
+
+
+\clearpage
+\bibliographystyle{apsr}
+\typeout{}
+
+\singlespacing
+
+\bibliographystyle{apsr}
+\bibliography{../prisons}
+
+\clearpage
+
+\input{figures_and_tables}
+
+\appendix
+\input{appendix}
+
+\setcounter{table}{0}
+\setcounter{figure}{0}
+\renewcommand{\thetable}{A\arabic{table}}
+\renewcommand{\thefigure}{A\arabic{figure}}
+
+%\input{thesis_draft/figures_and_tables}
+
+%\input{v1_amlo/appendix}
+
+
+\end{document}

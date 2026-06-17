@@ -1,0 +1,48 @@
+\section{Empirical Design}
+\label{sec:emp}
+
+\subsection*{Main specification}
+
+To investigate whether the introduction of a federal prisons had a significant effect on judicial behavior—particularly on sentencing decisions at the state level—I will estimate the following two-way fixed effects (TWFE) regression at the Mexican municipality level, with staggered treatment adoption:
+
+\begin{equation}
+\label{eq:eq1}
+    Y_{mt} = \phi + \beta TreatPost_{tm} + \gamma_t + \tau_m + \epsilon_{mt},
+\end{equation}
+
+where $Y_{mt}$ is the log number of people sentenced to prison in municipality $m$ at time $t$ (or the rate of people being sentenced to prison once condemned). The key independent variable, $TreatPost_{tm}$ is a time-varying dummy variable that equals one if, at time $t$, the closest federal prison to a municipality is within 300 kilometers (KM). Therefore $TreatPost_{m, t}$ is a dummy that becomes one once a federal prison is built near municipality $m$. The model includes time fixed effects $\gamma_t$ and municipality fixed effects $\tau_m$ to control for common temporal shocks and time-invariant municipal characteristics. The error term is denoted by $\epsilon_{mt}$. Standard errors are clustered at the municipality level.
+
+ Two things are worth emphasizing. First, although I use state-level judicial data, the treatment concerns federal prison construction. The underlying argument is that building a federal prison near a locality generates a negative shock to overcrowding in state prisons while simultaneously enabling individuals sentenced at the state level to be transferred to the newly built federal facility nearby. This could constitute either a capacity shock or the appearance of it, and may—or may not—affect sentencing decisions in the municipalities close to it. Moreover, this capacity shock is arguably more exogenous at the state level compared to public state prison constructions, which are likely endogenous to pre-existing overcapacity and policing conditions in each region and state.
+
+Second, the choice of the 300KM threshold was taken by a data-driven approach. This distance captures both the median (207 km) and mean (212 km) minimum distances from each municipality to a federal prison, providing adequate variation for the new prison’s construction to affect relevant municipalities. As illustrated in Figure \ref{fig:event_view_300km}, this threshold captures meaningful spatial variation. For robustness, I also present results using alternative thresholds of 250 and 350 kilometers, as well as a fine-grained analysis ranging from 250 to 350 kilometers in 1 km increments.
+
+\subsection*{Main identification assumptions and key threats to identification}
+
+To identify my parameter of interest ($\delta$) I do not need to assume that the timing and the location of the private prison center constructions are at random. To consistently estimate $\beta$ for my outcome of interest the econometric specification in Equation \ref{eq:eq1} requires that across municipalities and $\forall t\geq2$: 
+
+\begin{equation}
+\mathbb{E}[Y_{m,t}(0) - Y_{m,t-1}(0) \mid X_{tm}, TreatPost_{tm} = 1] = 
+\mathbb{E}[Y_{m,t}(0) - Y_{m,t-1}(0) \mid X_{tm}, TreatPost_{tm} = 0]
+\end{equation}
+
+In other words, it requires that sentencing would have exhibited parallel trends (PT) in the absence of the federal prison constructions. This condition ultimately requires that there are no additional unobserved time-varying, municipality-specific characteristics that coincide with the construction of private prisons that also affect the sentencing behavior of judges, conditional on individual sentencing characteristics. I can validate the plausibility of this assumption running the following dynamic event-study specification: 
+
+\begin{equation}
+\label{eq:eq2}
+    Y_{mt} = \phi + \sum_{\substack{i=-T_b \\ i\neq -1}}^{T_{a}} {\beta_{i}} Treat_{m}\times T_{i} + \gamma_t + \tau_m + X'_{mt}\sigma + \epsilon_{mt},
+\end{equation}
+
+where $T_{a}$ is the greatest time after the event while $T_{b}$ is before. This specification will allow me to directly test for the presence of pre-trends in sentencing outcomes and examine the dynamic effects of the construction of a prison near a municipality.
+
+One key additional assumption is implicit in the empirical models described above, and is that the treatment effects of prison construction are homogeneous across  municipalities and time periods. For this, \cite{Chaise, GoodmanBacon} have demonstrated that violating this assumption may lead to highly biased estimates of the ATT and misleading tests of parallel trends. The reason behind this is that under staggered adoption with treatment heterogeneity, TWFE regressions end up making \textit{forbidden comparisons}, such as using already treated units as controls. These comparisons generate negative weights when calculating the final ATT, leading to biased estimates of the true coefficients. 
+
+The issue of heterogeneous treatment effects (HTE) has been extensively studied in recent years, leading to the development of several estimators that address this challenge. For clarity and consistent interpretation, I select one estimator for this analysis: the event-by-event estimator from \citep{Callaway}. This choice follows the recommendations of two recent reviews \citep{Chaise-ReviewDID, Chiu-ReviewDID}. Several other estimators are available, all of which address the negative weighting problem, but they differ in things such as the reference period, the identifying assumption and the covariate adjustment.\footnote{See \cite{Chiu-ReviewDID} Table 1 for a summary of these differences.} Given this, as a robustness check, I present ATT results (all outcomes) and event studies (some outcomes) for some of the remaining estimators.   
+
+I use the method proposed by \cite{Callaway} (CSDID from now on) for several reasons. First, it allows for the use of not-yet-treated units as controls, adding more flexibility to the analysis. More importantly, by using their proposed covariate-adjustment, I can better solve for the failure of the often-implausible parallel trends assumption of comparing treated groups to never-treated and later-treated cohorts \citep{SantAnna-DR}.\footnote{Due to data limitations, I only have access to pre-treatment covariates from Census data compiled by INEGI, without time-varying covariates.} This covariate-adjustment also leads to efficiency gains and would help surpass the problem of low power to test the PT assumption \citep{Chiu-ReviewDID}.
+
+% The motivation to use an imputation method—specifically \cite{Liu-FECT}—stems from its efficiency under homoskedasticity, as demonstrated by \cite{Borusyak-DIDImp}. Although some serial correlation between units is likely, efficiency gains are still expected even with low serial correlation \citep{Chaise-ReviewDID}. Moreover, the imputation estimator manages complex scenarios such as treatment reversal, time-varying covariates, and unit-specific trends by linking to TWFE through a shared outcome model, allowing flexible adjustments \citep{Chiu-ReviewDID}. Finally, I choose \cite{Liu-FECT} due to the simplicity of the FECT package and the availability of tests for the parallel trends assumption it provides.
+
+Two additional modeling decisions deserve emphasis. First, I aggregate the data at the municipality level. Although the judicial dataset contains individual-level sentencing records, treatment is assigned at the municipality level, making this aggregation appropriate. This choice is motivated by two reasons: (1) the efficiency and exogeneity gains from using individual-level controls are likely limited since treatment is defined at a higher aggregation level, and (2) not all municipalities have sentenced or processed individuals in every period, which would create an unbalanced panel where units intermittently enter and exit the sample. Such patterns could correlate with prison construction, potentially biasing the ATT estimates \citep{SantQi, Hong}. However, aggregation introduces other issues that are addressed later.
+
+Second, the choice of time aggregation is important. While sentencing dates are recorded daily and prison construction dates monthly, I aggregate outcomes at the bimonthly level to reduce noise and improve interpretability. Aggregating over longer intervals (e.g., semesters) risks misclassifying treatment timing—for instance, a prison built at the end of a semester would cause all units in that period to be treated, despite most time being pre-treatment. Additionally, as shown in Figure \ref{fig:event_view_300km}, treatment uptake is concentrated in the later periods, so finer aggregation preserves dynamic variation crucial for the analysis.
+

@@ -19,19 +19,16 @@ build_mechanisms_panel <- function(project_root) {
   }
 
   processing <- read_periods("processing")
-  processing <- processing |>
-    mutate(
-      non_marg_condition = pmax(total_processed - marg_condition, 0),
-      formal_prision_non_marg = pmax(
-        formal_prision - formal_prision_marg,
-        0
-      )
-    )
   sentencing <- read_periods("sentencing")
+  sentencing <- sentencing |>
+    rename(
+      sentenced_marg_condition = marg_condition,
+      sentenced_non_marg_condition = non_marg_condition
+    )
 
   duplicate_crime_columns <- paste0("crime_", 1:14)
   sentencing <- sentencing |>
-    select(-all_of(duplicate_crime_columns))
+    select(-any_of(duplicate_crime_columns))
 
   panel <- processing |>
     left_join(sentencing, by = c("code_inegi", "year", "month"))
@@ -45,6 +42,18 @@ build_mechanisms_panel <- function(project_root) {
       "non_marg_condition",
       "formal_prision_marg",
       "formal_prision_non_marg"
+    ),
+    marginal_sentencing = c(
+      "sentenced_marg_condition",
+      "sentenced_non_marg_condition",
+      "condenado_marg",
+      "condenado_non_marg",
+      "sent_prison_marg",
+      "sent_prison_non_marg",
+      "only_sent_money_marg",
+      "only_sent_money_non_marg",
+      "absolutoria_marg",
+      "absolutoria_non_marg"
     ),
     pretrial_by_crime = paste0("formal_prision_crime_", crime_codes),
     release_by_crime = paste0("free_crime_", crime_codes),
@@ -206,6 +215,25 @@ mechanism_label <- function(variable) {
       "Pretrial detention, marginal-condition cases",
     variable == "formal_prision_non_marg" ~
       "Pretrial detention, non-marginal-condition cases",
+    variable == "sentenced_marg_condition" ~
+      "Sentenced, marginal-condition cases",
+    variable == "sentenced_non_marg_condition" ~
+      "Sentenced, non-marginal-condition cases",
+    variable == "condenado_marg" ~ "Guilty, marginal-condition cases",
+    variable == "condenado_non_marg" ~
+      "Guilty, non-marginal-condition cases",
+    variable == "sent_prison_marg" ~
+      "Guilty prison, marginal-condition cases",
+    variable == "sent_prison_non_marg" ~
+      "Guilty prison, non-marginal-condition cases",
+    variable == "only_sent_money_marg" ~
+      "Guilty money, marginal-condition cases",
+    variable == "only_sent_money_non_marg" ~
+      "Guilty money, non-marginal-condition cases",
+    variable == "absolutoria_marg" ~
+      "Not guilty, marginal-condition cases",
+    variable == "absolutoria_non_marg" ~
+      "Not guilty, non-marginal-condition cases",
     TRUE ~ variable
   )
 }

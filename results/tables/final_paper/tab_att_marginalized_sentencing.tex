@@ -1,0 +1,25 @@
+\begin{table}[!htpb]\centering
+\caption{Average treatment effects on sentencing by defendant socioeconomic status}
+\label{tab:att_marginalized_sentencing}
+\scriptsize
+\begin{threeparttable}
+\begin{adjustbox}{max width=\textwidth}
+\begin{tabular}{@{\extracolsep{0pt}}lcccccccccc}
+\hline\hline
+ & \shortstack{Marginal-condition\\ total sentenced} & \shortstack{Non-marginal-condition\\ total sentenced} & \shortstack{Marginal-condition\\ guilty} & \shortstack{Non-marginal-condition\\ guilty} & \shortstack{Marginal-condition\\ guilty prison} & \shortstack{Non-marginal-condition\\ guilty prison} & \shortstack{Marginal-condition\\ guilty money} & \shortstack{Non-marginal-condition\\ guilty money} & \shortstack{Marginal-condition\\ not guilty} & \shortstack{Non-marginal-condition\\ not guilty} \\
+ & (1) & (2) & (3) & (4) & (5) & (6) & (7) & (8) & (9) & (10) \\
+\hline
+Effect of federal prison construction & 0.029 & 0.044 & 0.032 & 0.045 & 0.023 & 0.046 & 0.045 & -0.010 & 0.021 & 0.012 \\
+ & [0.023] & [0.019] & [0.023] & [0.021] & [0.022] & [0.022] & [0.018] & [0.009] & [0.026] & [0.011] \\
+Controls & Yes & Yes & Yes & Yes & Yes & Yes & Yes & Yes & Yes & Yes \\
+Observations & 63,882 & 63,882 & 63,882 & 63,882 & 63,882 & 63,882 & 63,882 & 63,882 & 63,882 & 63,882 \\
+Pure control mean & 0.937 & 0.190 & 0.854 & 0.164 & 0.850 & 0.160 & 0.067 & 0.019 & 0.316 & 0.067 \\
+\hline\hline
+\end{tabular}
+\end{adjustbox}
+\begin{minipage}{0.95\textwidth}
+\footnotesize \emph{Notes:} The table reports CSDID average treatment effects with controls. Standard errors clustered by municipality are in brackets. Outcomes are sentencing counts by defendant marginal condition transformed using \(\log(1+y)\). Non-marginal-condition outcomes use the non-marginalized variables from the interaction datasets. The treatment variable is an indicator for federal prison construction within 300KM of a municipality. Estimates use CSDID with controls.
+\end{minipage}
+\end{threeparttable}
+\end{table}
+

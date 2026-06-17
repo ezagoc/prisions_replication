@@ -72,8 +72,7 @@ theme_event <- function() {
 
 csdid_controls_note <- paste0(
   "The treatment variable is an indicator for federal prison construction ",
-  "within 300KM of a municipality. CSDID controls are PMASC18\\_, VP\\_TV, ",
-  "VP\\_RADIO, and PNOTRABA."
+  "within 300KM of a municipality. Estimates use CSDID with controls."
 )
 
 plot_faceted_event <- function(data, labels, filename, ncol = 2) {
@@ -115,7 +114,7 @@ plot_overlay_event <- function(data, labels, filename) {
     "black",
     "grey72",
     "#2F6FB3",
-    "grey45",
+    "#D73027",
     "#7FA6D6",
     "grey25"
   )
@@ -207,7 +206,7 @@ plot_overlay_faceted_event <- function(data, plot_map, filename) {
     filename = file.path(figure_dir, filename),
     device = pdf,
     width = 7.2,
-    height = 4.2,
+    height = max(4.2, ceiling(n_distinct(plot_data$facet_label) / 2) * 2.2),
     units = "in"
   )
 }
@@ -229,8 +228,8 @@ make_att_table <- function(att_data, metadata, variables, headers, caption, labe
     c(
       ifelse(
         estimator_name == "CSDID",
-        "Effect of federal prison construction, no controls",
-        "Effect of federal prison construction, with controls"
+        "Effect of federal prison construction",
+        "Effect of federal prison construction"
       ),
       fmt_num(row$estimate)
     )
@@ -283,9 +282,9 @@ make_att_table <- function(att_data, metadata, variables, headers, caption, labe
     body, " \\\\\n",
     "\\hline\\hline\n",
     "\\end{tabular}\n",
-    "\\begin{tablenotes}[flushleft]\n",
-    "\\item \\emph{Notes:} ", notes, "\n",
-    "\\end{tablenotes}\n",
+    "\\begin{minipage}{0.95\\textwidth}\n",
+    "\\footnotesize \\emph{Notes:} ", notes, "\n",
+    "\\end{minipage}\n",
     "\\end{threeparttable}\n",
     "\\end{table}\n"
   )
@@ -310,7 +309,7 @@ make_controls_att_table <- function(att_data, metadata, variables, headers,
   alignment <- paste0("l", str_dup("c", length(variables)))
   rows <- list(
     c(
-      "Effect of federal prison construction, with controls",
+      "Effect of federal prison construction",
       fmt_num(table_data$estimate)
     ),
     c("", paste0("[", fmt_num(table_data$std_error), "]")),
@@ -341,9 +340,9 @@ make_controls_att_table <- function(att_data, metadata, variables, headers,
     "\\scriptsize\n",
     "\\begin{threeparttable}\n",
     tabular,
-    "\\begin{tablenotes}[flushleft]\n",
-    "\\item \\emph{Notes:} ", notes, "\n",
-    "\\end{tablenotes}\n",
+    "\\begin{minipage}{0.95\\textwidth}\n",
+    "\\footnotesize \\emph{Notes:} ", notes, "\n",
+    "\\end{minipage}\n",
     "\\end{threeparttable}\n",
     "\\end{table}\n"
   )
@@ -579,7 +578,7 @@ make_controls_att_table(
   )
 )
 
-make_att_table(
+make_controls_att_table(
   sentencing_att,
   main_metadata,
   c(
@@ -667,7 +666,20 @@ estimate_mechanism_extra <- function(variable) {
   )
 }
 
-extra_marginal_vars <- c("non_marg_condition", "formal_prision_non_marg")
+extra_marginal_vars <- c(
+  "non_marg_condition",
+  "formal_prision_non_marg",
+  "sentenced_marg_condition",
+  "sentenced_non_marg_condition",
+  "condenado_marg",
+  "condenado_non_marg",
+  "sent_prison_marg",
+  "sent_prison_non_marg",
+  "only_sent_money_marg",
+  "only_sent_money_non_marg",
+  "absolutoria_marg",
+  "absolutoria_non_marg"
+)
 missing_marginal_vars <- setdiff(extra_marginal_vars, unique(mechanism_att$variable))
 if (length(missing_marginal_vars) > 0) {
   extra_marginal_estimates <- map(missing_marginal_vars, estimate_mechanism_extra)
@@ -758,6 +770,41 @@ plot_overlay_faceted_event(
   "es_marginalized_status.pdf"
 )
 
+plot_overlay_faceted_event(
+  mechanism_events,
+  tibble(
+    variable = c(
+      "sentenced_marg_condition",
+      "sentenced_non_marg_condition",
+      "condenado_marg",
+      "condenado_non_marg",
+      "sent_prison_marg",
+      "sent_prison_non_marg",
+      "only_sent_money_marg",
+      "only_sent_money_non_marg",
+      "absolutoria_marg",
+      "absolutoria_non_marg"
+    ),
+    status_label = rep(
+      c("Marginal-condition", "Non-marginal-condition"),
+      times = 5
+    ),
+    facet_label = c(
+      "Total Sentenced",
+      "Total Sentenced",
+      "Guilty",
+      "Guilty",
+      "Guilty (Prison)",
+      "Guilty (Prison)",
+      "Guilty (Money)",
+      "Guilty (Money)",
+      "Not Guilty",
+      "Not Guilty"
+    )
+  ),
+  "es_marginalized_sentencing.pdf"
+)
+
 plot_overlay_event(
   mechanism_events,
   c(
@@ -820,8 +867,46 @@ make_controls_att_table(
     "The table reports CSDID average treatment effects with controls. ",
     "Standard errors clustered by municipality are in brackets. Outcomes ",
     "are transformed using \\(\\log(1+y)\\). Non-marginal-condition outcomes ",
-    "are constructed as total cases minus marginal-condition cases before ",
-    "the log transformation. ",
+    "use the non-marginalized variables from the interaction datasets. ",
+    csdid_controls_note
+  )
+)
+
+make_controls_att_table(
+  mechanism_att,
+  mechanism_metadata,
+  c(
+    "sentenced_marg_condition",
+    "sentenced_non_marg_condition",
+    "condenado_marg",
+    "condenado_non_marg",
+    "sent_prison_marg",
+    "sent_prison_non_marg",
+    "only_sent_money_marg",
+    "only_sent_money_non_marg",
+    "absolutoria_marg",
+    "absolutoria_non_marg"
+  ),
+  c(
+    "\\shortstack{Marginal-condition\\\\ total sentenced}",
+    "\\shortstack{Non-marginal-condition\\\\ total sentenced}",
+    "\\shortstack{Marginal-condition\\\\ guilty}",
+    "\\shortstack{Non-marginal-condition\\\\ guilty}",
+    "\\shortstack{Marginal-condition\\\\ guilty prison}",
+    "\\shortstack{Non-marginal-condition\\\\ guilty prison}",
+    "\\shortstack{Marginal-condition\\\\ guilty money}",
+    "\\shortstack{Non-marginal-condition\\\\ guilty money}",
+    "\\shortstack{Marginal-condition\\\\ not guilty}",
+    "\\shortstack{Non-marginal-condition\\\\ not guilty}"
+  ),
+  "Average treatment effects on sentencing by defendant socioeconomic status",
+  "tab:att_marginalized_sentencing",
+  paste0(
+    "The table reports CSDID average treatment effects with controls. ",
+    "Standard errors clustered by municipality are in brackets. Outcomes ",
+    "are sentencing counts by defendant marginal condition transformed ",
+    "using \\(\\log(1+y)\\). Non-marginal-condition outcomes use the ",
+    "non-marginalized variables from the interaction datasets. ",
     csdid_controls_note
   )
 )

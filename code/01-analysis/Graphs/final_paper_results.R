@@ -282,9 +282,9 @@ make_att_table <- function(att_data, metadata, variables, headers, caption, labe
     body, " \\\\\n",
     "\\hline\\hline\n",
     "\\end{tabular}\n",
-    "\\begin{minipage}{0.95\\textwidth}\n",
-    "\\footnotesize \\emph{Notes:} ", notes, "\n",
-    "\\end{minipage}\n",
+    "\\begin{tablenotes}[flushleft]\n",
+    "\\footnotesize \\item \\emph{Notes:} ", notes, "\n",
+    "\\end{tablenotes}\n",
     "\\end{threeparttable}\n",
     "\\end{table}\n"
   )
@@ -340,9 +340,9 @@ make_controls_att_table <- function(att_data, metadata, variables, headers,
     "\\scriptsize\n",
     "\\begin{threeparttable}\n",
     tabular,
-    "\\begin{minipage}{0.95\\textwidth}\n",
-    "\\footnotesize \\emph{Notes:} ", notes, "\n",
-    "\\end{minipage}\n",
+    "\\begin{tablenotes}[flushleft]\n",
+    "\\footnotesize \\item \\emph{Notes:} ", notes, "\n",
+    "\\end{tablenotes}\n",
     "\\end{threeparttable}\n",
     "\\end{table}\n"
   )

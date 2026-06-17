@@ -350,6 +350,90 @@ make_controls_att_table <- function(att_data, metadata, variables, headers,
   writeLines(tex, file.path(table_dir, paste0(str_replace_all(label, ":", "_"), ".tex")))
 }
 
+make_marginalized_sentencing_table <- function(att_data, metadata, caption,
+                                               label, notes) {
+  headers <- c(
+    "\\shortstack{Total\\\\ sentenced}",
+    "Guilty",
+    "\\shortstack{Guilty\\\\ prison}",
+    "\\shortstack{Guilty\\\\ money}",
+    "\\shortstack{Not\\\\ guilty}"
+  )
+  non_marg_vars <- c(
+    "sentenced_non_marg_condition",
+    "condenado_non_marg",
+    "sent_prison_non_marg",
+    "only_sent_money_non_marg",
+    "absolutoria_non_marg"
+  )
+  marg_vars <- c(
+    "sentenced_marg_condition",
+    "condenado_marg",
+    "sent_prison_marg",
+    "only_sent_money_marg",
+    "absolutoria_marg"
+  )
+
+  panel_rows <- function(variables, title) {
+    table_data <- att_data |>
+      filter(
+        variable %in% variables,
+        estimator == "CSDID (Controls)",
+        status == "ok"
+      ) |>
+      arrange(match(variable, variables))
+
+    meta <- metadata |>
+      filter(variable %in% variables) |>
+      arrange(match(variable, variables))
+
+    c(
+      paste0("\\multicolumn{6}{l}{\\textit{", title, "}}"),
+      paste(c(
+        "Effect of federal prison construction",
+        fmt_num(table_data$estimate)
+      ), collapse = " & "),
+      paste(c("", paste0("[", fmt_num(table_data$std_error), "]")), collapse = " & "),
+      paste(c("Controls", rep("Yes", length(variables))), collapse = " & "),
+      paste(c("Observations", fmt_int(meta$observations)), collapse = " & "),
+      paste(c("Pure control mean", fmt_num(meta$control_mean)), collapse = " & ")
+    )
+  }
+
+  rows <- c(
+    panel_rows(non_marg_vars, "Panel A: Non-marginalized defendants"),
+    "\\hline",
+    panel_rows(marg_vars, "Panel B: Marginalized defendants")
+  )
+
+  tabular <- paste0(
+    "\\begin{tabular}{@{\\extracolsep{0pt}}lccccc}\n",
+    "\\hline\\hline\n",
+    paste(c("", headers), collapse = " & "), " \\\\\n",
+    paste(c("", paste0("(", seq_along(headers), ")")), collapse = " & "), " \\\\\n",
+    "\\hline\n",
+    paste(rows, collapse = " \\\\\n"), " \\\\\n",
+    "\\hline\\hline\n",
+    "\\end{tabular}\n"
+  )
+
+  tex <- paste0(
+    "\\begin{table}[!htpb]\\centering\n",
+    "\\caption{", caption, "}\n",
+    "\\label{", label, "}\n",
+    "\\scriptsize\n",
+    "\\begin{threeparttable}\n",
+    tabular,
+    "\\begin{minipage}{0.95\\textwidth}\n",
+    "\\footnotesize \\emph{Notes:} ", notes, "\n",
+    "\\end{minipage}\n",
+    "\\end{threeparttable}\n",
+    "\\end{table}\n"
+  )
+
+  writeLines(tex, file.path(table_dir, paste0(str_replace_all(label, ":", "_"), ".tex")))
+}
+
 build_main_panel <- function() {
   p1 <- read_parquet(file.path(data_dir, "panel_comun_1997_2008.parquet.gzip")) |>
     filter(year > 1999)
@@ -872,41 +956,16 @@ make_controls_att_table(
   )
 )
 
-make_controls_att_table(
+make_marginalized_sentencing_table(
   mechanism_att,
   mechanism_metadata,
-  c(
-    "sentenced_marg_condition",
-    "sentenced_non_marg_condition",
-    "condenado_marg",
-    "condenado_non_marg",
-    "sent_prison_marg",
-    "sent_prison_non_marg",
-    "only_sent_money_marg",
-    "only_sent_money_non_marg",
-    "absolutoria_marg",
-    "absolutoria_non_marg"
-  ),
-  c(
-    "\\shortstack{Marginal-condition\\\\ total sentenced}",
-    "\\shortstack{Non-marginal-condition\\\\ total sentenced}",
-    "\\shortstack{Marginal-condition\\\\ guilty}",
-    "\\shortstack{Non-marginal-condition\\\\ guilty}",
-    "\\shortstack{Marginal-condition\\\\ guilty prison}",
-    "\\shortstack{Non-marginal-condition\\\\ guilty prison}",
-    "\\shortstack{Marginal-condition\\\\ guilty money}",
-    "\\shortstack{Non-marginal-condition\\\\ guilty money}",
-    "\\shortstack{Marginal-condition\\\\ not guilty}",
-    "\\shortstack{Non-marginal-condition\\\\ not guilty}"
-  ),
   "Average treatment effects on sentencing by defendant socioeconomic status",
   "tab:att_marginalized_sentencing",
   paste0(
     "The table reports CSDID average treatment effects with controls. ",
     "Standard errors clustered by municipality are in brackets. Outcomes ",
     "are sentencing counts by defendant marginal condition transformed ",
-    "using \\(\\log(1+y)\\). Non-marginal-condition outcomes use the ",
-    "non-marginalized variables from the interaction datasets. ",
+    "using \\(\\log(1+y)\\). ",
     csdid_controls_note
   )
 )

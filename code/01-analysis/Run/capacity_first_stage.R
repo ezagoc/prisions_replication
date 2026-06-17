@@ -6,6 +6,7 @@
 pacman::p_load(tidyverse, arrow, did, patchwork)
 
 rm(list = ls())
+set.seed(12345)
 
 find_project_root <- function() {
   args <- commandArgs(trailingOnly = FALSE)
@@ -162,12 +163,7 @@ saveRDS(
 )
 
 plot_event(
-  capacity_estimates |> filter(radius == "400 km"),
-  "capacity_first_stage_400km.pdf"
-)
-
-plot_event(
-  capacity_estimates |> filter(radius %in% c("300 km", "500 km")),
+  capacity_estimates,
   "capacity_first_stage_robustness.pdf",
   overlay = TRUE
 )

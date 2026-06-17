@@ -5,27 +5,15 @@
 
 Before turning to judicial outcomes, I first verify that the construction of nearby federal prisons reduced the local prison-capacity constraint. This first stage uses the prison-level panel and estimates CSDID event studies for state prisons that had a substantial federal-prisoner presence during the period. The outcome is the inverse hyperbolic sine of relative overcrowding, and treatment begins when a federal prison opens within the specified radius of the state prison.
 
-Figure \ref{fig:capacity_first_stage} reports the main first-stage specification, using a 400 km radius. The event-study estimates show no clear differential trend before treatment and become negative after the opening of a nearby federal facility. The average effect is -0.092, with a 95 percent confidence interval from -0.167 to -0.016. This pattern indicates that the federal prison expansion did in fact relax overcrowding in nearby state prisons that were likely to be connected to the federal system.
+Figure \ref{fig:capacity_first_stage} reports the first-stage event studies using 300 km, 400 km, and 500 km treatment radii. The estimates show no clear differential trend before treatment and become negative after the opening of a nearby federal facility. The average effect is negative across all three radii: -0.029 for 300 km, -0.092 for 400 km, and -0.115 for 500 km. The 400 km and 500 km estimates are statistically distinguishable from zero, while the 300 km estimate is negative but imprecise. The fact that the stronger first-stage estimates appear at 400 and 500 km is consistent with the institutional setting: federal prisons were intended to reorganize incarceration across broad regional catchment areas rather than only to affect immediately adjacent municipalities. These estimates provide direct evidence that the treatment generated a meaningful capacity shock, which is the institutional channel underlying the judicial results below.
 
 \begin{figure}[!htpb]
     \centering
     \caption{Dynamic effects of federal prison openings on local prison overcrowding}
     \label{fig:capacity_first_stage}
-    \includegraphics[width=\textwidth]{../results/figures/final_paper/capacity_first_stage_400km.pdf}
-    \begin{minipage}{0.95\textwidth}
-    \footnotesize \emph{Notes:} The figure reports CSDID event-study estimates for state prisons with substantial federal-prisoner presence. The outcome is the inverse hyperbolic sine of relative overcrowding. Points denote dynamic treatment effects and vertical bars report 95 percent confidence intervals. Treatment begins when a federal prison opens within 400 km of the state prison.
-    \end{minipage}
-\end{figure}
-
-Figure \ref{fig:capacity_first_stage_robust} shows that this first-stage result is not unique to the exact radius. The estimate using a 500 km radius is also negative and statistically distinguishable from zero (-0.115), while the 300 km estimate is negative but imprecise (-0.029). The fact that the stronger first-stage estimates appear at 400 and 500 km is consistent with the institutional setting: federal prisons were intended to reorganize incarceration across broad regional catchment areas rather than only to affect immediately adjacent municipalities. These estimates provide direct evidence that the treatment generated a meaningful capacity shock, which is the institutional channel underlying the judicial results below.
-
-\begin{figure}[!htpb]
-    \centering
-    \caption{Robustness of the first-stage effects on local prison overcrowding}
-    \label{fig:capacity_first_stage_robust}
     \includegraphics[width=\textwidth]{../results/figures/final_paper/capacity_first_stage_robustness.pdf}
     \begin{minipage}{0.95\textwidth}
-    \footnotesize \emph{Notes:} The figure reports CSDID event-study estimates for state prisons with substantial federal-prisoner presence. The outcome is the inverse hyperbolic sine of relative overcrowding. Points denote dynamic treatment effects and vertical bars report 95 percent confidence intervals. Treatment begins when a federal prison opens within 300 km or 500 km of the state prison.
+    \footnotesize \emph{Notes:} The figure reports CSDID event-study estimates for state prisons with substantial federal-prisoner presence. The outcome is the inverse hyperbolic sine of relative overcrowding. Points denote dynamic treatment effects and vertical bars report 95 percent confidence intervals. Treatment begins when a federal prison opens within 300 km, 400 km, or 500 km of the state prison.
     \end{minipage}
 \end{figure}
 
@@ -113,7 +101,7 @@ Table \ref{tab:att_crime_type} reports the average effects for all available cri
 
 \subsubsection*{Arrests of marginalized individuals}
 
-The available mechanism data also identify cases involving marginal-condition defendants. Figure \ref{fig:es_marginalized_status} compares marginal-condition cases with non-marginal-condition cases using the corresponding variables in the interaction datasets. The figure separates arrests and pre-trial detention into panels and overlays the two defendant groups within each panel. The estimates are best interpreted as evidence on composition: both groups show positive post-treatment effects, but the increase is larger for marginal-condition defendants. This suggests that the increase in arrests includes more socially vulnerable defendants, although the available data do not separately identify every socioeconomic category discussed in the descriptive section.
+The available mechanism data also identify cases involving marginal-condition defendants. In this analysis, marginalized individuals are those recorded as illiterate, having less than high school education, having no job, or being teenagers. Non-marginalized individuals refer to the more privileged comparison group: literate defendants with a job and a bachelor's degree. Figure \ref{fig:es_marginalized_status} compares marginal-condition cases with non-marginal-condition cases using the corresponding variables in the interaction datasets. The figure separates arrests and pre-trial detention into panels and overlays the two defendant groups within each panel. The estimates are best interpreted as evidence on composition: both groups show positive post-treatment effects, but the increase is larger for marginal-condition defendants. This suggests that the increase in arrests includes more socially vulnerable defendants, although the available data do not separately identify every socioeconomic category discussed in the descriptive section.
 
 \begin{figure}[!htpb]
     \centering
@@ -131,7 +119,7 @@ Table \ref{tab:att_marginalized} reports the corresponding average effects. The 
 
 \subsubsection*{Sentencing by marginalized status}
 
-I also examine sentencing outcomes by defendant marginal condition. Figure \ref{fig:es_marginalized_sentencing} separates total sentenced, guilty, guilty prison, guilty money, and not-guilty outcomes into panels and overlays marginal-condition and non-marginal-condition defendants. The resulting pattern is mixed: sentencing effects are positive for both groups in several outcomes, and the relative size of the estimates differs across sentencing margins.
+I also examine sentencing outcomes by defendant marginal condition, using the same definitions of marginalized and non-marginalized defendants described above. Figure \ref{fig:es_marginalized_sentencing} separates total sentenced, guilty, guilty prison, guilty money, and not-guilty outcomes into panels and overlays marginal-condition and non-marginal-condition defendants. The resulting pattern is mixed: sentencing effects are positive for both groups in several outcomes, and the relative size of the estimates differs across sentencing margins.
 
 \begin{figure}[!htpb]
     \centering
